@@ -20,8 +20,15 @@ They do not contain authoritative project progress.
 | TASK.template.md | Task execution and verification        |
 | GATE.template.md | Lot validation decision                |
 
-Templates will be introduced after the delivery
-documentation contracts are reviewed.
+The four canonical templates are available in this
+directory.
+
+When creating an operational document, copy the
+appropriate template into its canonical delivery path
+and replace every placeholder.
+
+Relative links in a template are designed for its
+destination directory and must be verified after copying.
 
 ## Usage rules
 
