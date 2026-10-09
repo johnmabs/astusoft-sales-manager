@@ -24,7 +24,7 @@ yet been accepted.
 | Phase               | Phase 0 — Project Governance        |
 | Lot                 | LOT-00 — Project Foundation         |
 | Epic                | EPIC-00-01 — Governance Foundations |
-| Current Task        | TASK-00-01-04                       |
+| Current Task        | TASK-00-01-05                       |
 | Current Task status | in-progress                         |
 | Last validated Gate | None confirmed                      |
 
@@ -65,19 +65,22 @@ has been reviewed, committed or accepted.
 
 ## 5. Current work
 
-**Task:** TASK-00-01-04
+**Task:** TASK-00-01-05
 
 **Objective:**
-Establish a reliable project state snapshot and a recovery
-procedure that can be followed after a long interruption.
+Establish the AI collaboration entry point and progressive
+context-loading rules.
 
 **Expected changes:**
 
-- Create PROJECT_STATE.md.
-- Create RECOVERY_PROTOCOL.md.
-- Verify document references.
-- Record the actual Git checkpoint.
-- Review and commit the changes.
+- Create AGENTS.md.
+- Review context-loading instructions.
+- Review implementation and verification rules.
+- Verify consistency with governance documents.
+- Update the project recovery snapshot.
+- Commit the approved changes.
+
+**Validation status:** In progress.
 
 ## 6. Known blockers and open questions
 
@@ -91,18 +94,18 @@ The following verification remains open:
 
 ## 7. Next actionable step
 
-**Action:** Review and validate TASK-00-01-04.
+**Action:** Review and validate TASK-00-01-05.
 
-1. Read the current Project State.
-2. Review RECOVERY_PROTOCOL.md.
-3. Verify the local Git branch and working tree.
-4. Check documentation consistency.
-5. Commit the approved recovery documentation.
-6. Record the resulting commit in the next checkpoint.
+1. Review AGENTS.md.
+2. Check consistency with governance documents.
+3. Inspect Git status.
+4. Verify document links and references.
+5. Commit the approved changes.
+6. Record the resulting Git checkpoint.
 
 **Proposed commit:**
 
-`docs(governance): establish project recovery protocol`
+`docs(ai): establish AI collaboration instructions`
 
 ## 8. Recovery entry point
 
