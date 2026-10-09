@@ -99,6 +99,19 @@ recorded and validation MUST follow an explicit decision.
 Evidence MUST identify the tested revision whenever
 applicable.
 
+### Validation history
+
+When a previously validated Task is reopened:
+
+- Preserve its previous verification evidence.
+- Record why the previous validation is no longer sufficient.
+- Identify the affected behavior or document.
+- Record the new verification requirements.
+- Keep the current status consistent with the reopened work.
+
+Historical evidence MUST remain distinguishable from
+the validation evidence for the current revision.
+
 ## 7. Epic lifecycle
 
 Epics use:
