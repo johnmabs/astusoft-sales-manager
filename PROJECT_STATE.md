@@ -34,21 +34,36 @@ documents are created.
 
 ## 3. Git checkpoint
 
-**Last verified commit:** Not yet reconciled
-**Working tree:** Not yet verified
-**Uncommitted changes:** Unknown until inspected
+Git is the authoritative source for the current branch,
+HEAD commit, working tree and untracked files.
 
-Run:
+This document does not duplicate the latest commit SHA
+or a potentially outdated working tree status.
+
+### Inspect the current repository state
+
+Run from the repository root:
 
 ```bash
 git branch --show-current
 git status --short
-git log -5 --oneline
+git log -5 --oneline --decorate
 ```
 
-Record only verified Git information.
+### Recovery rules
 
-Do not assume a clean working tree.
+1. Read the actual Git state before starting work.
+2. Inspect modified and untracked files before editing.
+3. Preserve unfinished work.
+4. Consult Task records for implementation status and
+   validation evidence.
+5. Reconcile any inconsistency between Git, delivery
+   documentation and PROJECT_STATE.md.
+
+A Git commit is evidence of versioning, not proof that
+the corresponding Task has been validated.
+
+Do not update this section solely because HEAD changes.
 
 ## 4. Governance documents
 
@@ -101,7 +116,9 @@ The following verification remains open:
 3. Inspect Git status.
 4. Verify document links and references.
 5. Commit the approved changes.
-6. Record the resulting Git checkpoint.
+6. Verify the resulting Git state.
+7. Record commit references in Task validation evidence when applicable.
+8. Update PROJECT_STATE.md only if the delivery context or next actionable step has changed.
 
 **Proposed commit:**
 

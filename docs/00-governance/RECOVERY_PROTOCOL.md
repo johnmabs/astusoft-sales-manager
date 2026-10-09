@@ -29,6 +29,21 @@ that the change satisfies its requirements.
 
 Project State MUST NOT override contradictory evidence.
 
+### Git metadata policy
+
+PROJECT_STATE.md MUST NOT duplicate volatile Git metadata
+such as HEAD, the active branch or the working tree status.
+
+These values MUST be inspected directly from Git when
+starting or resuming work.
+
+Commit references MAY be recorded in Task evidence,
+review reports or ADRs when they identify a specific
+historical revision.
+
+PROJECT_STATE.md MUST be updated when the delivery
+context changes, not merely because a new commit exists.
+
 ## 3. Recovery phase A — Inspect Git
 
 Run from the project root:
