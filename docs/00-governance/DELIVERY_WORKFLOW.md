@@ -173,6 +173,22 @@ Prefer:
 - Add the missing concurrency test.
 - Validate the identified API contract.
 
+### Git state and project state
+
+Git is the authoritative source for the current branch,
+HEAD commit and working tree status.
+
+PROJECT_STATE.md MUST NOT duplicate this volatile metadata.
+
+During handoff:
+
+- Inspect Git directly.
+- Record validation evidence in the relevant Task or review.
+- Update PROJECT_STATE.md when the active work,
+  blockers or next actionable step changes.
+- Do not create an additional commit solely to record
+  the SHA of the preceding commit.
+
 ## 9. Long interruption recovery
 
 After an extended interruption:

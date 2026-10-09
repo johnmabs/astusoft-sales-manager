@@ -23,14 +23,13 @@ yet been accepted.
 | ------------------- | ----------------------------------- |
 | Phase               | Phase 0 — Project Governance        |
 | Lot                 | LOT-00 — Project Foundation         |
-| Epic                | EPIC-00-01 — Governance Foundations |
-| Current Task        | TASK-00-01-05                       |
-| Current Task status | in-progress                         |
+| Epic                | EPIC-00-02 — Delivery Documentation |
+| Current Task        | TASK-00-02-01                       |
+| Current Task status | planned                             |
 | Last validated Gate | None confirmed                      |
 
-The Lot, Epic and Task identifiers are provisional
-planning references until their authoritative delivery
-documents are created.
+The identifiers remain provisional until their
+authoritative delivery records are created.
 
 ## 3. Git checkpoint
 
@@ -109,20 +108,17 @@ The following verification remains open:
 
 ## 7. Next actionable step
 
-**Action:** Review and validate TASK-00-01-05.
+**Task:** TASK-00-02-01
 
-1. Review AGENTS.md.
-2. Check consistency with governance documents.
-3. Inspect Git status.
-4. Verify document links and references.
-5. Commit the approved changes.
-6. Verify the resulting Git state.
-7. Record commit references in Task validation evidence when applicable.
-8. Update PROJECT_STATE.md only if the delivery context or next actionable step has changed.
+**Action:** Define the authoritative delivery structure.
 
-**Proposed commit:**
+1. Establish the Lot, Epic, Task and Gate document contracts.
+2. Create the corresponding Markdown templates.
+3. Define parent-child references and dependency rules.
+4. Create the first authoritative LOT-00 records.
+5. Validate documentation consistency before committing.
 
-`docs(ai): establish AI collaboration instructions`
+Do not declare LOT-00 validated until GATE-00 has passed.
 
 ## 8. Recovery entry point
 

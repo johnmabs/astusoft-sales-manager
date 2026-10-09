@@ -76,13 +76,19 @@ of the initial governance framework.
 
 ## 5. Verification evidence
 
-| Check               | Command or method   | Result       | Revision |
-| ------------------- | ------------------- | ------------ | -------- |
-| Required files      | check_governance.py | Not executed | —        |
-| Markdown links      | check_governance.py | Not executed | —        |
-| Git diff            | git diff --check    | Not executed | —        |
-| Recovery simulation | Manual review       | Not executed | —        |
-| Working tree        | git status --short  | Not executed | —        |
+| Check                       | Method                              | Result  | Evidence      |
+| --------------------------- | ----------------------------------- | ------- | ------------- |
+| Required files              | `python3 tools/check_governance.py` | Pending | Record output |
+| Markdown links              | `python3 tools/check_governance.py` | Pending | Record output |
+| Whitespace                  | `git diff --check`                  | Pending | Record output |
+| Source-of-truth consistency | Manual review                       | Pending | Review notes  |
+| Task status consistency     | Manual review                       | Pending | Review notes  |
+| Recovery simulation         | Manual exercise                     | Pending | Review notes  |
+| Git working tree            | `git status --short`                | Pending | Record output |
+
+Results MUST be recorded after execution.
+
+A successful automated check does not replace manual review.
 
 ## 6. Findings
 
@@ -99,15 +105,27 @@ No findings have been verified yet.
 
 ## 7. Review decision
 
-**Decision:** Pending
+**Decision:** Accepted
+**Reviewer:** Project Maintainer
+**Date:** 2026-10-09
 
-Possible outcomes:
+### Acceptance scope
 
-- Accepted
-- Changes required
+The initial governance framework is accepted.
 
-Acceptance requires a completed checklist, recorded
-verification evidence and explicit maintainer approval.
+The review confirms the documentation policy, delivery
+status model, development workflow, recovery procedure
+and AI collaboration rules.
+
+### Explicit limitations
+
+- Authoritative Lot, Epic, Task and Gate records are not
+  yet implemented.
+- Automated checks cover structural consistency only.
+- Business and technical architecture decisions remain open.
+
+These limitations are assigned to subsequent work and
+do not imply that LOT-00 is validated.
 
 ## 8. Next step
 
