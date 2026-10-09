@@ -1,7 +1,7 @@
 # Status Model — Astusoft Sales Manager
 
 **Document ID:** GOV-002
-**Status:** Accepted
+**Status:** In Review
 **Owner:** Project Maintainer
 
 ## 1. Purpose

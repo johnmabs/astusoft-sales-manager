@@ -1,7 +1,7 @@
 # Delivery Workflow — Astusoft Sales Manager
 
 **Document ID:** GOV-003
-**Status:** Accepted
+**Status:** In Review
 **Owner:** Project Maintainer
 
 ## 1. Purpose

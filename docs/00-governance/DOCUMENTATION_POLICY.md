@@ -1,7 +1,7 @@
 # Documentation Policy — Astusoft Sales Manager
 
 **Document ID:** GOV-001
-**Status:** Accepted
+**Status:** In Review
 **Owner:** Project Maintainer
 
 ## 1. Purpose
