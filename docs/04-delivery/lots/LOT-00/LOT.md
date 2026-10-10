@@ -54,21 +54,18 @@ planning and discovery activities.
 
 ## 4. Epic inventory
 
-The following Epics define the initial scope.
+| Epic       | Objective                        | Status        | Reference                              |
+| ---------- | -------------------------------- | ------------- | -------------------------------------- |
+| EPIC-00-01 | Establish initial governance     | in-validation | [EPIC-00-01](epics/EPIC-00-01/EPIC.md) |
+| EPIC-00-02 | Establish delivery documentation | in-progress   | Not yet created                        |
 
-| Epic       | Objective                        | Status               |
-| ---------- | -------------------------------- | -------------------- |
-| EPIC-00-01 | Establish initial governance     | Verification pending |
-| EPIC-00-02 | Establish delivery documentation | In progress          |
+Epic files own their authoritative statuses.
 
-The statuses above are planning observations until
-authoritative Epic records have been created.
+The EPIC-00-02 record will be introduced during
+delivery documentation formalization.
 
-Once created, Epic files own their official statuses.
-This table must then be reconciled with those records.
-
-Additional Epics may be proposed through explicit
-scope review.
+This inventory must be reconciled when its authoritative
+record is created or a status changes.
 
 ## 5. Dependencies
 
