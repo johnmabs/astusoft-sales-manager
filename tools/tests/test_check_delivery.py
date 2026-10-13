@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from tools.check_delivery import read_delivery_metadata
+from tools.check_delivery import validate_parent_reference
 
 from tools.check_delivery import (
     DeliveryMetadataError,
@@ -226,6 +227,171 @@ class DeliveryMetadataFileTests(unittest.TestCase):
         self.assertEqual(
             metadata.status,
             "in-progress",
+        )
+
+
+class ParentReferenceValidationTests(unittest.TestCase):
+    def setUp(self):
+        self.directory = TemporaryDirectory()
+        self.root = Path(self.directory.name)
+
+        self.lot = self.root / "docs/04-delivery/lots/LOT-00"
+        self.epic = self.lot / "epics/EPIC-00-02"
+        self.tasks = self.epic / "tasks"
+
+        self.tasks.mkdir(parents=True)
+
+        self.lot_file = self.lot / "LOT.md"
+        self.epic_file = self.epic / "EPIC.md"
+        self.task_file = self.tasks / "TASK-00-02-04.md"
+        self.gate_file = self.lot / "GATE.md"
+
+        self.lot_file.write_text(
+            "# LOT-00\n\n"
+            "**ID:** LOT-00\n"
+            "**Status:** in-progress\n",
+            encoding="utf-8",
+        )
+
+        self.epic_file.write_text(
+            "# EPIC-00-02\n\n"
+            "**ID:** EPIC-00-02\n"
+            "**Status:** in-progress\n"
+            "**Parent Lot:** [LOT-00](../../LOT.md)\n",
+            encoding="utf-8",
+        )
+
+        self.task_file.write_text(
+            "# TASK-00-02-04\n\n"
+            "**ID:** TASK-00-02-04\n"
+            "**Status:** in-progress\n"
+            "**Parent Epic:** [EPIC-00-02](../EPIC.md)\n",
+            encoding="utf-8",
+        )
+
+        self.gate_file.write_text(
+            "# GATE-00\n\n"
+            "**ID:** GATE-00\n"
+            "**Status:** pending\n"
+            "**Parent Lot:** [LOT-00](LOT.md)\n",
+            encoding="utf-8",
+        )
+
+    def tearDown(self):
+        self.directory.cleanup()
+
+    def assert_invalid(self, path, record_type, message):
+        with self.assertRaisesRegex(
+            DeliveryMetadataError, message
+        ):
+            validate_parent_reference(
+                path, record_type, self.root
+            )
+
+    def test_valid_task_parent(self):
+        self.assertEqual(
+            validate_parent_reference(
+                self.task_file, "task", self.root
+            ),
+            self.epic_file.resolve(),
+        )
+
+    def test_valid_epic_parent(self):
+        self.assertEqual(
+            validate_parent_reference(
+                self.epic_file, "epic", self.root
+            ),
+            self.lot_file.resolve(),
+        )
+
+    def test_valid_gate_parent(self):
+        self.assertEqual(
+            validate_parent_reference(
+                self.gate_file, "gate", self.root
+            ),
+            self.lot_file.resolve(),
+        )
+
+    def test_rejects_missing_parent_file(self):
+        self.epic_file.unlink()
+
+        self.assert_invalid(
+            self.task_file, "task", "Parent file not found"
+        )
+
+    def test_rejects_parent_identifier_mismatch(self):
+        self.epic_file.write_text(
+            "**ID:** EPIC-00-03\n"
+            "**Status:** in-progress\n"
+            "**Parent Lot:** [LOT-00](../../LOT.md)\n",
+            encoding="utf-8",
+        )
+
+        self.assert_invalid(
+            self.task_file, "task", "Parent ID mismatch"
+        )
+
+    def test_rejects_inconsistent_task_numbering(self):
+        self.task_file.write_text(
+            "**ID:** TASK-00-03-04\n"
+            "**Status:** in-progress\n"
+            "**Parent Epic:** [EPIC-00-02](../EPIC.md)\n",
+            encoding="utf-8",
+        )
+
+        self.assert_invalid(
+            self.task_file, "task", "Parent hierarchy mismatch"
+        )
+
+    def test_rejects_inconsistent_epic_numbering(self):
+        self.epic_file.write_text(
+            "**ID:** EPIC-01-02\n"
+            "**Status:** in-progress\n"
+            "**Parent Lot:** [LOT-00](../../LOT.md)\n",
+            encoding="utf-8",
+        )
+
+        self.assert_invalid(
+            self.epic_file, "epic", "Parent hierarchy mismatch"
+        )
+
+    def test_rejects_inconsistent_gate_numbering(self):
+        self.gate_file.write_text(
+            "**ID:** GATE-01\n"
+            "**Status:** pending\n"
+            "**Parent Lot:** [LOT-00](LOT.md)\n",
+            encoding="utf-8",
+        )
+
+        self.assert_invalid(
+            self.gate_file, "gate", "Parent hierarchy mismatch"
+        )
+
+    def test_rejects_parent_path_outside_repository(self):
+        outside = self.root.parent / "external-parent.md"
+
+        self.task_file.write_text(
+            "**ID:** TASK-00-02-04\n"
+            "**Status:** in-progress\n"
+            f"**Parent Epic:** [EPIC-00-02]"
+            f"({outside.as_posix()})\n",
+            encoding="utf-8",
+        )
+
+        self.assert_invalid(
+            self.task_file, "task", "Parent path escapes repository"
+        )
+
+    def test_rejects_parent_directory_instead_of_file(self):
+        self.task_file.write_text(
+            "**ID:** TASK-00-02-04\n"
+            "**Status:** in-progress\n"
+            "**Parent Epic:** [EPIC-00-02](../)\n",
+            encoding="utf-8",
+        )
+
+        self.assert_invalid(
+            self.task_file, "task", "Parent file not found"
         )
 
 

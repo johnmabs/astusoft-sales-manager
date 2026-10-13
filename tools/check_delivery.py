@@ -199,3 +199,101 @@ def read_delivery_metadata(
     content = path.read_text(encoding="utf-8")
 
     return parse_delivery_metadata(content, record_type)
+
+
+def _expected_parent_identifier(
+    identifier: str,
+    record_type: str,
+) -> str:
+    """Derive the expected parent ID from the child ID."""
+
+    parts = identifier.split("-")
+
+    if record_type == "task":
+        return f"EPIC-{parts[1]}-{parts[2]}"
+
+    if record_type == "epic":
+        return f"LOT-{parts[1]}"
+
+    if record_type == "gate":
+        return f"LOT-{parts[1]}"
+
+    raise DeliveryMetadataError(
+        f"Unsupported parent relationship: {record_type}"
+    )
+
+
+def validate_parent_reference(
+    path: Path,
+    record_type: str,
+    repository_root: Path,
+) -> Path:
+    """Validate an operational document's parent reference.
+
+    Returns the resolved parent file path on success.
+    """
+
+    if record_type not in PARENT_TYPES:
+        raise DeliveryMetadataError(
+            f"Unsupported parent relationship: {record_type}"
+        )
+
+    root = repository_root.resolve()
+    document = path.resolve()
+
+    if not document.is_relative_to(root):
+        raise DeliveryMetadataError(
+            "Document path escapes repository"
+        )
+
+    metadata = read_delivery_metadata(document, record_type)
+
+    if metadata.parent_identifier is None:
+        raise DeliveryMetadataError(
+            "Missing parent identifier"
+        )
+
+    if metadata.parent_path is None:
+        raise DeliveryMetadataError(
+            "Missing parent path"
+        )
+
+    expected_parent = _expected_parent_identifier(
+        metadata.identifier,
+        record_type,
+    )
+
+    if metadata.parent_identifier != expected_parent:
+        raise DeliveryMetadataError(
+            "Parent hierarchy mismatch: "
+            f"{metadata.identifier} requires {expected_parent}"
+        )
+
+    parent = (
+        document.parent / metadata.parent_path
+    ).resolve()
+
+    if not parent.is_relative_to(root):
+        raise DeliveryMetadataError(
+            "Parent path escapes repository"
+        )
+
+    if not parent.is_file():
+        raise DeliveryMetadataError(
+            f"Parent file not found: {parent}"
+        )
+
+    parent_type = PARENT_TYPES[record_type]
+    parent_metadata = read_delivery_metadata(
+        parent,
+        parent_type,
+    )
+
+    if parent_metadata.identifier != metadata.parent_identifier:
+        raise DeliveryMetadataError(
+            "Parent ID mismatch: "
+            f"declared {metadata.parent_identifier}, "
+            f"found {parent_metadata.identifier}"
+        )
+
+    return parent
