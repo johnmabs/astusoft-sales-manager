@@ -57,15 +57,15 @@ planning and discovery activities.
 | Epic       | Objective                        | Status        | Reference                              |
 | ---------- | -------------------------------- | ------------- | -------------------------------------- |
 | EPIC-00-01 | Establish initial governance     | in-validation | [EPIC-00-01](epics/EPIC-00-01/EPIC.md) |
-| EPIC-00-02 | Establish delivery documentation | in-progress   | Not yet created                        |
+| EPIC-00-02 | Establish delivery documentation | in-progress   | [EPIC-00-02](epics/EPIC-00-02/EPIC.md) |
 
-Epic files own their authoritative statuses.
+Epic records own their authoritative statuses.
 
-The EPIC-00-02 record will be introduced during
-delivery documentation formalization.
+This inventory must be reconciled when an Epic status
+changes.
 
-This inventory must be reconciled when its authoritative
-record is created or a status changes.
+The statuses shown here must match the corresponding
+Epic records.
 
 ## 5. Dependencies
 
