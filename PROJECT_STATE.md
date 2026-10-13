@@ -19,17 +19,17 @@ yet been accepted.
 
 ## 2. Current delivery focus
 
-| Field               | Value                               |
-| ------------------- | ----------------------------------- |
-| Phase               | Phase 0 — Project Governance        |
-| Lot                 | LOT-00 — Project Foundation         |
-| Epic                | EPIC-00-02 — Delivery Documentation |
-| Current Task        | TASK-00-02-01                       |
-| Current Task status | planned                             |
-| Last validated Gate | None confirmed                      |
+| Field               | Value                                              |
+| ------------------- | -------------------------------------------------- |
+| Phase               | Phase 0 — Project Foundation                       |
+| Lot                 | LOT-00 — Project Foundation                        |
+| Epic                | EPIC-00-02 — Delivery Documentation Infrastructure |
+| Current Task        | TASK-00-02-03                                      |
+| Current Task status | in-progress                                        |
+| Last validated Gate | None confirmed                                     |
 
-The identifiers remain provisional until their
-authoritative delivery records are created.
+Authoritative delivery statuses belong to the corresponding
+Lot, Epic, Task and Gate records.
 
 ## 3. Git checkpoint
 
@@ -79,7 +79,7 @@ has been reviewed, committed or accepted.
 
 ## 5. Current work
 
-**Task:** TASK-00-01-05
+**Task:** TASK-00-02-05
 
 **Objective:**
 Establish the AI collaboration entry point and progressive
@@ -108,17 +108,21 @@ The following verification remains open:
 
 ## 7. Next actionable step
 
-**Task:** TASK-00-02-01
+**Task:** TASK-00-02-03
 
-**Action:** Define the authoritative delivery structure.
+**Action:** Complete operational delivery record reconciliation.
 
-1. Establish the Lot, Epic, Task and Gate document contracts.
-2. Create the corresponding Markdown templates.
-3. Define parent-child references and dependency rules.
-4. Create the first authoritative LOT-00 records.
-5. Validate documentation consistency before committing.
+1. Verify the five EPIC-00-02 Task records.
+2. Verify all parent-child Markdown links.
+3. Reconcile historical commit references using Git.
+4. Review statuses against available evidence.
+5. Record actual verification results.
+6. Validate and commit TASK-00-02-03 documentation.
+7. Transition to TASK-00-02-04 when its prerequisites
+   have been satisfied.
 
-Do not declare LOT-00 validated until GATE-00 has passed.
+Git remains authoritative for branch, HEAD and working
+tree status. Do not duplicate volatile Git metadata here.
 
 ## 8. Recovery entry point
 

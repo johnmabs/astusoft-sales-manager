@@ -45,23 +45,18 @@ must not depend on previous conversations.
 
 ## 4. Task inventory
 
-The following Tasks define the current Epic scope.
-
-| Task          | Objective                                 | Status        | Reference                |
-| ------------- | ----------------------------------------- | ------------- | ------------------------ |
-| TASK-00-02-01 | Define delivery documentation contracts   | in-validation | `tasks/TASK-00-02-01.md` |
-| TASK-00-02-02 | Create and correct delivery templates     | in-validation | `tasks/TASK-00-02-02.md` |
-| TASK-00-02-03 | Establish operational delivery records    | in-progress   | `tasks/TASK-00-02-03.md` |
-| TASK-00-02-04 | Automate delivery documentation checks    | planned       | `tasks/TASK-00-02-04.md` |
-| TASK-00-02-05 | Review delivery documentation consistency | planned       | `tasks/TASK-00-02-05.md` |
-
-References above are non-clickable until the corresponding
-Task records exist.
+| Task          | Objective                     | Status        | Reference                               |
+| ------------- | ----------------------------- | ------------- | --------------------------------------- |
+| TASK-00-02-01 | Define delivery contracts     | in-validation | [TASK-00-02-01](tasks/TASK-00-02-01.md) |
+| TASK-00-02-02 | Create delivery templates     | in-validation | [TASK-00-02-02](tasks/TASK-00-02-02.md) |
+| TASK-00-02-03 | Establish operational records | in-progress   | [TASK-00-02-03](tasks/TASK-00-02-03.md) |
+| TASK-00-02-04 | Automate documentation checks | planned       | [TASK-00-02-04](tasks/TASK-00-02-04.md) |
+| TASK-00-02-05 | Review delivery documentation | planned       | [TASK-00-02-05](tasks/TASK-00-02-05.md) |
 
 Each Task record owns its authoritative status.
 
-The inventory must be reconciled when those records
-are created or a Task status changes.
+This inventory is a navigation snapshot and must be
+reconciled whenever a Task status changes.
 
 ## 5. Dependencies
 
