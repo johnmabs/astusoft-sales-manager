@@ -49,20 +49,18 @@ project information.
 
 ## 4. Task inventory
 
-| Task          | Objective                               | Status                          |
-| ------------- | --------------------------------------- | ------------------------------- |
-| TASK-00-01-01 | Initialize Git repository               | Historical review pending       |
-| TASK-00-01-02 | Define documentation policy             | Historical review pending       |
-| TASK-00-01-03 | Define workflow and status model        | Historical review pending       |
-| TASK-00-01-04 | Establish project recovery protocol     | Historical review pending       |
-| TASK-00-01-05 | Establish AI collaboration instructions | Historical review pending       |
-| TASK-00-01-06 | Validate initial governance framework   | Evidence reconciliation pending |
+| Task          | Objective                        | Status        | Reference                      |
+| ------------- | -------------------------------- | ------------- | ------------------------------ |
+| TASK-00-01-01 | Initialize repository            | in-validation | [Task](tasks/TASK-00-01-01.md) |
+| TASK-00-01-02 | Define documentation policy      | in-validation | [Task](tasks/TASK-00-01-02.md) |
+| TASK-00-01-03 | Define workflow and status model | in-validation | [Task](tasks/TASK-00-01-03.md) |
+| TASK-00-01-04 | Establish recovery protocol      | in-validation | [Task](tasks/TASK-00-01-04.md) |
+| TASK-00-01-05 | Establish AI instructions        | in-validation | [Task](tasks/TASK-00-01-05.md) |
+| TASK-00-01-06 | Validate initial governance      | in-progress   | [Task](tasks/TASK-00-01-06.md) |
 
-The descriptions above are historical observations,
-not authoritative Task statuses.
+Each Task file owns its authoritative status.
 
-Once the Task records exist, their statuses must use
-STATUS_MODEL.md and this inventory must be reconciled.
+The inventory must be updated when Task statuses change.
 
 ## 5. Dependencies
 
