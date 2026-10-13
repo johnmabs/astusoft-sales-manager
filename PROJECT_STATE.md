@@ -108,7 +108,7 @@ The following verification remains open:
 
 ## 7. Next actionable step
 
-**Task:** TASK-00-02-03
+**Task:** TASK-00-02-04
 
 **Action:** Complete operational delivery record reconciliation.
 
@@ -117,8 +117,8 @@ The following verification remains open:
 3. Reconcile historical commit references using Git.
 4. Review statuses against available evidence.
 5. Record actual verification results.
-6. Validate and commit TASK-00-02-03 documentation.
-7. Transition to TASK-00-02-04 when its prerequisites
+6. Validate and commit TASK-00-02-04 documentation.
+7. Transition to TASK-00-02-05 when its prerequisites
    have been satisfied.
 
 Git remains authoritative for branch, HEAD and working
