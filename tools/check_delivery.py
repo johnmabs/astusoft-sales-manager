@@ -2,7 +2,8 @@
 """Validation of delivery documentation contracts."""
 
 import re
-
+from dataclasses import dataclass
+from pathlib import Path
 
 IDENTIFIER_PATTERNS = {
     "lot": re.compile(r"LOT-\d{2}"),
@@ -56,3 +57,145 @@ def validate_status(record_type: str, status: str) -> bool:
         return False
 
     return status in allowed
+
+
+@dataclass(frozen=True)
+class DeliveryMetadata:
+    identifier: str
+    status: str
+    parent_identifier: str | None = None
+    parent_path: str | None = None
+
+
+class DeliveryMetadataError(ValueError):
+    """Raised when delivery metadata violates its contract."""
+
+
+PARENT_FIELDS = {
+    "epic": "Parent Lot",
+    "task": "Parent Epic",
+    "gate": "Parent Lot",
+}
+
+PARENT_TYPES = {
+    "epic": "lot",
+    "task": "epic",
+    "gate": "lot",
+}
+
+FIELD_PATTERN = re.compile(
+    r"^\*\*(ID|Status|Parent Lot|Parent Epic):\*\*[ \t]*(.*)$",
+    re.MULTILINE,
+)
+
+MARKDOWN_LINK_PATTERN = re.compile(
+    r"^\[([^\]\n]+)\]\(([^)\n]+)\)$"
+)
+
+
+def _extract_fields(content: str) -> dict[str, str]:
+    fields: dict[str, str] = {}
+
+    for match in FIELD_PATTERN.finditer(content):
+        name, value = match.groups()
+
+        if name in fields:
+            raise DeliveryMetadataError(
+                f"Duplicate {name} field"
+            )
+
+        fields[name] = value.strip()
+
+    return fields
+
+
+def _require_field(
+    fields: dict[str, str],
+    name: str,
+) -> str:
+    value = fields.get(name)
+
+    if not value:
+        raise DeliveryMetadataError(
+            f"Missing {name} field"
+        )
+
+    return value
+
+
+def parse_delivery_metadata(
+    content: str,
+    record_type: str,
+) -> DeliveryMetadata:
+    """Parse and validate metadata from a delivery document."""
+
+    if record_type not in IDENTIFIER_PATTERNS:
+        raise DeliveryMetadataError(
+            f"Unknown record type: {record_type}"
+        )
+
+    fields = _extract_fields(content)
+
+    identifier = _require_field(fields, "ID")
+    status = _require_field(fields, "Status")
+
+    if not validate_identifier(record_type, identifier):
+        raise DeliveryMetadataError(
+            f"Invalid ID for {record_type}: {identifier}"
+        )
+
+    if not validate_status(record_type, status):
+        raise DeliveryMetadataError(
+            f"Invalid Status for {record_type}: {status}"
+        )
+
+    if record_type == "lot":
+        return DeliveryMetadata(
+            identifier=identifier,
+            status=status,
+        )
+
+    parent_field = PARENT_FIELDS[record_type]
+    parent_type = PARENT_TYPES[record_type]
+
+    parent_value = _require_field(fields, parent_field)
+
+    link_match = MARKDOWN_LINK_PATTERN.fullmatch(
+        parent_value
+    )
+
+    if link_match is None:
+        raise DeliveryMetadataError(
+            f"Invalid {parent_field}: expected Markdown link"
+        )
+
+    parent_identifier, parent_path = link_match.groups()
+
+    if not validate_identifier(parent_type, parent_identifier):
+        raise DeliveryMetadataError(
+            f"Invalid {parent_field} identifier: "
+            f"{parent_identifier}"
+        )
+
+    if not parent_path.strip():
+        raise DeliveryMetadataError(
+            f"Invalid {parent_field}: empty path"
+        )
+
+    return DeliveryMetadata(
+        identifier=identifier,
+        status=status,
+        parent_identifier=parent_identifier,
+        parent_path=parent_path,
+    )
+
+
+def read_delivery_metadata(
+    path: Path,
+    record_type: str,
+) -> DeliveryMetadata:
+    """Read and parse metadata from a Markdown file."""
+
+    content = path.read_text(encoding="utf-8")
+
+    return parse_delivery_metadata(content, record_type)
