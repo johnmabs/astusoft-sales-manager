@@ -58,3 +58,30 @@ Lifecycle statuses are defined in
 
 The implementation workflow is defined in
 [Delivery Workflow](../../00-governance/DELIVERY_WORKFLOW.md).
+
+## Template reference policy
+
+Templates MUST NOT contain active Markdown links to
+operational delivery records that do not yet exist.
+
+Use non-clickable placeholders for:
+
+- Parent Lots.
+- Parent Epics.
+- Child Epics.
+- Child Tasks.
+- Gates not yet created.
+
+When instantiating a template:
+
+1. Replace all placeholder identifiers.
+2. Create the required operational files.
+3. Convert placeholders to relative Markdown links.
+4. Verify that every active link resolves correctly.
+5. Ensure parent-child references are consistent.
+
+Links to existing governance documents MAY remain active,
+provided they resolve from the template's actual directory.
+
+A template MUST NOT require the documentation validator
+to ignore broken links.

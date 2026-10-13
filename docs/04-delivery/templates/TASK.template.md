@@ -3,7 +3,7 @@
 **ID:** TASK-XX-YY-ZZ
 **Status:** planned
 **Owner:** [Responsible person or role]
-**Parent Epic:** [EPIC-XX-YY](../EPIC.md)
+**Parent Epic:** `EPIC-XX-YY` (replace with a valid link when instantiated)
 
 ## 1. Objective
 

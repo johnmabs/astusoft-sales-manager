@@ -2,7 +2,7 @@
 
 **ID:** GATE-XX
 **Status:** pending
-**Parent Lot:** [LOT-XX](LOT.md)
+**Parent Lot:** LOT-XX (replace with a valid link in the operational document)
 **Reviewer:** Not assigned
 **Review date:** Not recorded
 
@@ -70,6 +70,14 @@ The decision must include supporting evidence.
 
 ## 9. References
 
-- [Parent Lot](LOT.md)
-- [Delivery Contracts](../../DELIVERY_CONTRACTS.md)
-- [Status Model](../../../00-governance/STATUS_MODEL.md)
+The following references must be configured when
+creating an operational Gate document:
+
+- Parent Lot: `LOT-XX/LOT.md`
+- Delivery Contracts: `docs/04-delivery/DELIVERY_CONTRACTS.md`
+- Status Model: `docs/00-governance/STATUS_MODEL.md`
+
+Replace these placeholders with valid relative Markdown
+links from the destination directory.
+
+Do not treat template placeholders as resolved links.

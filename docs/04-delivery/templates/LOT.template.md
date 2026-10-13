@@ -26,13 +26,25 @@ of this Lot.]
 
 ## 4. Epic inventory
 
-| Epic       | Objective   | Status  | Reference                              |
-| ---------- | ----------- | ------- | -------------------------------------- |
-| EPIC-XX-01 | [Objective] | planned | [EPIC-XX-01](epics/EPIC-XX-01/EPIC.md) |
+| Epic         | Objective   | Status  | Reference                  |
+| ------------ | ----------- | ------- | -------------------------- |
+| `EPIC-XX-01` | [Objective] | planned | `epics/EPIC-XX-01/EPIC.md` |
 
-The Epic record owns its own status.
-This table is a navigation snapshot and must be
-reconciled whenever the Epic's status changes.
+The reference is a placeholder, not an active Markdown link.
+
+When creating an operational Lot document:
+
+1. Replace the Epic identifier with its actual ID.
+2. Create the corresponding Epic document.
+3. Replace the reference with a valid relative Markdown link.
+4. Verify that the target file exists.
+
+Example of an operational reference:
+
+    [EPIC-00-01](../lots/LOT-00/epics/EPIC-00-01/EPIC.md)
+
+Epic records own their authoritative statuses.
+The inventory must be reconciled when an Epic status changes.
 
 ## 5. Dependencies
 
@@ -60,7 +72,15 @@ Dependencies must be declared explicitly.
 
 ## 9. Gate
 
-**Gate:** [GATE-XX](GATE.md)
+**Gate ID:** `GATE-XX`
+**Gate document:** `GATE.md` (placeholder)
+
+When instantiating this template, create the operational
+Gate document and replace the placeholder with a valid link.
+
+Example:
+
+    **Gate:** [GATE-00](../lots/LOT-00/GATE.md)
 
 The Lot may be validated only when its required Epics
 are validated, its acceptance criteria are satisfied

@@ -3,7 +3,7 @@
 **ID:** EPIC-XX-YY
 **Status:** planned
 **Owner:** [Responsible person or role]
-**Parent Lot:** [LOT-XX](../../LOT.md)
+**Parent Lot:** `LOT-XX` (replace with a valid link when instantiated)
 
 ## 1. Objective
 
@@ -26,11 +26,26 @@ objective of the Epic.]
 
 ## 4. Task inventory
 
-| Task          | Objective   | Status  | Reference                               |
-| ------------- | ----------- | ------- | --------------------------------------- |
-| TASK-XX-YY-01 | [Objective] | planned | [TASK-XX-YY-01](tasks/TASK-XX-YY-01.md) |
+| Task            | Objective   | Status  | Reference                |
+| --------------- | ----------- | ------- | ------------------------ |
+| `TASK-XX-YY-01` | [Objective] | planned | `tasks/TASK-XX-YY-01.md` |
+
+The reference is a placeholder, not an active Markdown link.
+
+When creating an operational Epic document:
+
+1. Replace the Task identifier with its actual ID.
+2. Create the corresponding Task document.
+3. Replace the reference with a valid relative Markdown link.
+4. Verify that the target file exists.
+
+Example of an operational reference:
+
+    [TASK-00-01-01](../lots/LOT-00/epics/EPIC-00-01/tasks/TASK-00-01-01.md)
 
 Each Task owns its authoritative status.
+
+The inventory must be reconciled whenever a Task status changes.
 
 ## 5. Dependencies
 
