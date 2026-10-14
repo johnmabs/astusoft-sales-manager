@@ -283,6 +283,70 @@ Organisation, vente, encaissement et contrôle de caisse.
 Cette décision ne préjuge pas du découpage technique
 ou des frontières des bounded contexts.
 
+### BR-SALES-010 — Responsabilité individuelle des sessions de caisse
+
+**Statut :** Décision métier confirmée
+
+**Périmètre :** Point de vente et encaissement
+
+#### Règle principale
+
+Chaque session de caisse est attribuée à un seul
+utilisateur identifié.
+
+Un utilisateur ne peut avoir qu'une seule session
+de caisse active à la fois.
+
+#### Ouverture de session
+
+- Le vendeur doit utiliser son propre compte.
+- Une session est ouverte à son nom.
+- La session est associée à un point de vente.
+- La caisse concernée est identifiée.
+- Le fonds de caisse initial peut être enregistré.
+
+#### Encaissement
+
+- Les opérations sont attribuées au vendeur identifié.
+- Les encaissements sont rattachés à sa session active.
+- Un autre utilisateur ne peut pas encaisser dans
+  cette session.
+- Le vendeur reste responsable des opérations
+  effectuées sous son compte.
+
+#### Remplacement d'un vendeur
+
+Lorsqu'un vendeur est remplacé :
+
+1. Il termine ses opérations en cours.
+2. Il procède au comptage de sa caisse.
+3. Il clôture sa session.
+4. Son remplaçant se connecte avec son compte.
+5. Le remplaçant ouvre une nouvelle session.
+6. Les encaissements suivants sont enregistrés
+   dans cette nouvelle session.
+
+Une session ne peut pas être transférée d'un
+utilisateur à un autre.
+
+#### Clôture
+
+- La session conserve son historique.
+- Le montant théorique est calculé.
+- Le montant réellement compté est enregistré.
+- Les éventuels écarts sont conservés.
+- Une session clôturée ne reçoit plus de nouveaux
+  encaissements.
+
+#### Cas particuliers à préciser
+
+- Clôture forcée par un responsable.
+- Oubli de clôture en fin de journée.
+- Panne pendant une session.
+- Plusieurs caisses dans un même point de vente.
+- Transmission du fonds de caisse au remplaçant.
+- Gestion des paiements non effectués en espèces.
+
 ## 7. Informations métier potentielles
 
 À étudier lors de la découverte :
