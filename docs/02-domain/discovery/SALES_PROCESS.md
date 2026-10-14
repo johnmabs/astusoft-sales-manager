@@ -347,6 +347,62 @@ utilisateur à un autre.
 - Transmission du fonds de caisse au remplaçant.
 - Gestion des paiements non effectués en espèces.
 
+### BR-SALES-011 — Simplicité opérationnelle et passation de caisse
+
+**Statut :** Orientation métier confirmée, modalités à préciser
+
+**Principe :**
+Le fonctionnement de la caisse doit être adapté à la taille,
+à l'organisation et aux besoins de contrôle du point de vente.
+
+#### Commerce tenu par une seule personne
+
+- Le propriétaire peut cumuler les responsabilités de gérant,
+  vendeur et caissier.
+- Les opérations courantes doivent nécessiter un minimum
+  d'interactions.
+- L'ouverture automatique d'une session est envisagée.
+- Aucune passation entre personnes n'est nécessaire.
+- Les encaissements restent attribuables à leur auteur.
+
+#### Commerce avec plusieurs vendeurs
+
+- Chaque vendeur possède son compte utilisateur.
+- Chaque session appartient à un seul vendeur.
+- Un vendeur clôture sa session avant sa relève.
+- Le fonds de caisse laissé au remplaçant est déclaré.
+- Le remplaçant confirme le montant reçu.
+- Le gérant est informé de la passation.
+- Toute divergence de montant est conservée et signalée.
+
+#### Structure avec contrôle renforcé
+
+Le point de vente peut appliquer des procédures plus
+détaillées d'ouverture, de clôture, de comptage,
+de passation et de supervision.
+
+#### Principes communs
+
+- La simplicité de l'interface ne doit pas supprimer
+  les preuves des opérations.
+- Les responsabilités individuelles restent identifiables.
+- Les montants déclarés et reçus ne sont pas confondus.
+- Les écarts constatés ne sont pas effacés.
+- Les politiques de fonctionnement sont définies
+  par point de vente.
+
+#### Questions à préciser
+
+- Comment initialiser une session automatique sans demander
+  de montant à l'utilisateur ?
+- Une ouverture automatique peut-elle réutiliser le dernier
+  fonds de caisse connu ?
+- Qui peut traiter un écart lors d'une passation ?
+- Une passation doit-elle être approuvée ou simplement
+  signalée au gérant ?
+- Que faire lorsqu'un vendeur quitte son poste sans
+  pouvoir clôturer sa session ?
+
 ## 7. Informations métier potentielles
 
 À étudier lors de la découverte :
