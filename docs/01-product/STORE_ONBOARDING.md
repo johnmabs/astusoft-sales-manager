@@ -30,14 +30,34 @@ ne constitue pas une limitation permanente.
 
 Destinée à une boutique tenue par une seule personne.
 
-Comportement initial envisagé :
+#### Première utilisation
+
+Avant la première vente, le commerçant renseigne
+le montant d'espèces réellement disponible dans sa caisse.
+
+Ce montant constitue le fonds initial de sa première
+session de caisse.
+
+- Le montant doit être supérieur ou égal à zéro.
+- Un montant de 0 FCFA est autorisé si la caisse est vide.
+- L'utilisateur confirme le montant avant de commencer.
+- La première session est créée à son nom.
+- Le montant renseigné est conservé dans l'historique.
+- Cette étape ne doit pas être répétée à chaque vente.
+
+#### Fonctionnement courant
 
 - Compte utilisateur individuel.
-- Possibilité d'ouvrir automatiquement une session.
-- Aucune passation entre vendeurs.
-- Fonds initial facultatif.
-- Suivi des encaissements conservé.
-- Clôture simplifiée.
+- Ouverture de session simplifiée.
+- Encaissements attribués au commerçant.
+- Aucune passation entre vendeurs lorsqu'il travaille seul.
+- Historique des sessions et opérations conservé.
+- Clôture de caisse simplifiée.
+
+#### Principe
+
+La simplicité de l'expérience utilisateur ne doit pas
+empêcher la traçabilité des mouvements d'argent.
 
 ### 3.2. Boutique avec relève
 
@@ -107,7 +127,9 @@ l'implémentation de ces changements.
 - Quelles informations sont obligatoires à l'inscription ?
 - Une caisse physique doit-elle être créée automatiquement ?
 - Comment démarre une session automatique ?
-- Quand demander le premier fonds de caisse ?
+- Comment proposer une ouverture simplifiée lors des
+  journées suivantes, sans réutiliser automatiquement
+  un montant qui n'a pas été vérifié ?
 - Comment guider un commerçant vers un profil
   plus adapté lorsque son activité grandit ?
 - Quelles modifications de politique exigent
