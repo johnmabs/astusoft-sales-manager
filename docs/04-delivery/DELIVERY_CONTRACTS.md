@@ -1,7 +1,7 @@
 # Delivery Documentation Contracts
 
 **Document ID:** GOV-006
-**Status:** Draft
+**Status:** In Review
 **Owner:** Project Maintainer
 
 ## 1. Purpose
