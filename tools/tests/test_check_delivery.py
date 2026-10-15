@@ -466,23 +466,23 @@ class ChildInventoryValidationTests(unittest.TestCase):
         self.task = self.epic.parent / "tasks/TASK-00-02-04.md"
         self.task.parent.mkdir(parents=True)
         self.lot.write_text(
-            "**ID:** LOT-00\\n**Status:** in-progress\\n"
-            "## 4. Epic inventory\\n"
-            "| Epic | Objective | Status | Reference |\\n"
-            "| --- | --- | --- | --- |\\n"
-            "| EPIC-00-02 | Docs | in-progress | [EPIC-00-02](epics/EPIC-00-02/EPIC.md) |\\n"
+            "**ID:** LOT-00\n**Status:** in-progress\n"
+            "## 4. Epic inventory\n"
+            "| Epic | Objective | Status | Reference |\n"
+            "| --- | --- | --- | --- |\n"
+            "| EPIC-00-02 | Docs | in-progress | [EPIC-00-02](epics/EPIC-00-02/EPIC.md) |\n"
         )
         self.epic.write_text(
-            "**ID:** EPIC-00-02\\n**Status:** in-progress\\n"
-            "**Parent Lot:** [LOT-00](../../LOT.md)\\n"
-            "## 4. Task inventory\\n"
-            "| Task | Objective | Status | Reference |\\n"
-            "| --- | --- | --- | --- |\\n"
-            "| TASK-00-02-04 | Docs | in-progress | [Task](tasks/TASK-00-02-04.md) |\\n"
+            "**ID:** EPIC-00-02\n**Status:** in-progress\n"
+            "**Parent Lot:** [LOT-00](../../LOT.md)\n"
+            "## 4. Task inventory\n"
+            "| Task | Objective | Status | Reference |\n"
+            "| --- | --- | --- | --- |\n"
+            "| TASK-00-02-04 | Docs | in-progress | [Task](tasks/TASK-00-02-04.md) |\n"
         )
         self.task.write_text(
-            "**ID:** TASK-00-02-04\\n**Status:** in-progress\\n"
-            "**Parent Epic:** [EPIC-00-02](../EPIC.md)\\n"
+            "**ID:** TASK-00-02-04\n**Status:** in-progress\n"
+            "**Parent Epic:** [EPIC-00-02](../EPIC.md)\n"
         )
 
     def tearDown(self):
@@ -500,8 +500,8 @@ class ChildInventoryValidationTests(unittest.TestCase):
     def test_rejects_unlisted_child(self):
         another = self.task.parent / "TASK-00-02-05.md"
         another.write_text(
-            "**ID:** TASK-00-02-05\\n**Status:** planned\\n"
-            "**Parent Epic:** [EPIC-00-02](../EPIC.md)\\n"
+            "**ID:** TASK-00-02-05\n**Status:** planned\n"
+            "**Parent Epic:** [EPIC-00-02](../EPIC.md)\n"
         )
         with self.assertRaisesRegex(DeliveryMetadataError, "Inventory mismatch"):
             validate_child_inventory(self.epic, "epic", self.root)
@@ -515,7 +515,7 @@ class ChildInventoryValidationTests(unittest.TestCase):
             validate_child_inventory(self.epic, "epic", self.root)
 
     def test_rejects_duplicate_inventory_id(self):
-        entry = "| TASK-00-02-04 | Docs | in-progress | [Task](tasks/TASK-00-02-04.md) |\\n"
+        entry = "| TASK-00-02-04 | Docs | in-progress | [Task](tasks/TASK-00-02-04.md) |\n"
         self.epic.write_text(self.epic.read_text() + entry)
         with self.assertRaisesRegex(DeliveryMetadataError, "Duplicate inventory ID"):
             validate_child_inventory(self.epic, "epic", self.root)
