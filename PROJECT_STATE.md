@@ -2,7 +2,7 @@
 
 **State ID:** STATE-001
 **Last reviewed:** 2026-10-15
-**State status:** CI evidence recorded; formal task acceptance pending
+**State status:** TASK-00-02-04 accepted; next delivery review pending
 **Expected branch:** main
 
 > This file is a navigation and recovery snapshot.
@@ -24,7 +24,7 @@ No technical architecture has yet been accepted. Initial business decisions on c
 | Lot                 | LOT-00 — Project Foundation                        |
 | Epic                | EPIC-00-02 — Delivery Documentation Infrastructure |
 | Current Task        | TASK-00-02-04 (delivery validation work)          |
-| Current Task status | in-progress                                        |
+| Current Task status | validated                                        |
 | Last validated Gate | None confirmed                                     |
 
 Authoritative delivery statuses belong to the corresponding
@@ -82,7 +82,7 @@ has been reviewed, committed or accepted.
 
 **Context:** The repository contains AGENTS.md, governance checks, delivery checks and tests. Existing commits demonstrate tracked changes, not successful validation. Daily cash opening and configurable variance policy are documented in `docs/02-domain/discovery/CASH_SESSION_DAILY_OPENING.md`.
 
-**Validation status:** GitHub Actions passed for merge commit `551f473` ([run #2](https://github.com/johnmabs/astusoft-sales-manager/actions/runs/38726684776)); formal TASK-00-02-04 acceptance review remains pending.
+**Validation status:** GitHub Actions passed for merge commit `551f473` ([run #2](https://github.com/johnmabs/astusoft-sales-manager/actions/runs/38726684776)); TASK-00-02-04 formally accepted on 2026-10-15; parent Epic and LOT-00 remain in progress.
 
 ## 6. Known blockers and open questions
 
@@ -101,10 +101,10 @@ The following verification remains open:
 **Action:** Complete operational delivery record reconciliation.
 
 1. Inspect Git status locally and read TASK-00-02-04.
-2. Review recorded CI evidence in TASK-00-02-04 and its known limitations.
-3. Complete formal acceptance review for TASK-00-02-04; do not mark it validated automatically.
-4. Reconcile Task, Epic and Lot statuses after the actual decision.
-5. Then assess readiness for TASK-00-02-05.
+2. Review TASK-00-02-05 and its prerequisites.
+3. Reconcile historical Task and Epic acceptance evidence.
+4. Run the delivery and governance validators on any further changes.
+5. Keep LOT-00 and GATE-00 pending until their own criteria are satisfied.
 
 Git remains authoritative for branch, HEAD and working
 tree status. Do not duplicate volatile Git metadata here.
