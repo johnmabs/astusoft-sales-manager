@@ -364,7 +364,7 @@ def validate_child_inventory(
     if heading not in content:
         raise DeliveryMetadataError(f"Missing inventory section: {heading}")
 
-    section = content.split(heading, 1)[1].split("\\n## ", 1)[0]
+    section = content.split(heading, 1)[1].split("\n## ", 1)[0]
     child_type = "epic" if record_type == "lot" else "task"
     child_dir = path.parent / ("epics" if record_type == "lot" else "tasks")
     discovered = (
