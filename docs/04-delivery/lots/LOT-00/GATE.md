@@ -1,10 +1,10 @@
 # GATE-00 — Project Foundation Acceptance
 
 **ID:** GATE-00
-**Status:** pending
+**Status:** in-review
 **Parent Lot:** [LOT-00](LOT.md)
 **Reviewer:** Project Maintainer
-**Review date:** Not recorded
+**Review date:** 2026-10-15
 
 ## 1. Purpose
 
@@ -75,7 +75,7 @@ A waived Gate must never be represented as passed.
 
 ## 7. Decision
 
-**Decision:** Pending
+**Decision:** In review — not passed
 **Reviewer:** Project Maintainer
 **Date:** Not recorded
 
