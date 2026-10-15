@@ -24,17 +24,15 @@ Le projet adopte les principes suivants :
 
 ## État du projet
 
-**Phase actuelle :** Initialisation du dépôt.
+**Phase actuelle :** Fondations documentaires (LOT-00) en cours et découverte métier engagée.
 
-Aucune architecture technique ni règle métier détaillée n'a encore été approuvée.
+Les premières décisions relatives aux caisses, aux sessions individuelles et à l'ouverture quotidienne sont documentées. Elles ne constituent pas une implémentation applicative. Aucune architecture technique n'a encore été acceptée.
 
-La documentation et le suivi d'implémentation seront ajoutés progressivement.
+Consulter [PROJECT_STATE.md](PROJECT_STATE.md) pour la reprise du travail et [l'ouverture quotidienne de caisse](docs/02-domain/discovery/CASH_SESSION_DAILY_OPENING.md) pour les règles métier concernées.
 
 ## Organisation du dépôt
 
-La structure documentaire et applicative sera définie dans les prochaines étapes.
-
-Les répertoires seront introduits lorsqu'une responsabilité claire leur aura été attribuée.
+Le dépôt comporte déjà les documents de gouvernance, de vision produit, de découverte métier et les enregistrements de livraison LOT/EPIC/TASK. Des outils de validation documentaire et leurs tests sont présents ; leur validation opérationnelle reste à établir par des vérifications exécutées.
 
 ## Contribution
 
