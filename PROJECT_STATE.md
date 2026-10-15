@@ -2,7 +2,7 @@
 
 **State ID:** STATE-001
 **Last reviewed:** 2026-10-15
-**State status:** Partially reconciled; validation evidence pending
+**State status:** CI evidence recorded; formal task acceptance pending
 **Expected branch:** main
 
 > This file is a navigation and recovery snapshot.
@@ -82,7 +82,7 @@ has been reviewed, committed or accepted.
 
 **Context:** The repository contains AGENTS.md, governance checks, delivery checks and tests. Existing commits demonstrate tracked changes, not successful validation. Daily cash opening and configurable variance policy are documented in `docs/02-domain/discovery/CASH_SESSION_DAILY_OPENING.md`.
 
-**Validation status:** Pending executed verification and evidence reconciliation.
+**Validation status:** GitHub Actions passed for merge commit `551f473` ([run #2](https://github.com/johnmabs/astusoft-sales-manager/actions/runs/38726684776)); formal TASK-00-02-04 acceptance review remains pending.
 
 ## 6. Known blockers and open questions
 
@@ -101,10 +101,10 @@ The following verification remains open:
 **Action:** Complete operational delivery record reconciliation.
 
 1. Inspect Git status locally and read TASK-00-02-04.
-2. Run existing documentation validation tests and tools.
-3. Record the exact commands, results, revision and limitations.
-4. Reconcile task, epic and lot statuses only against verified evidence.
-5. Review open cash policy questions without presenting them as approved defaults.
+2. Review recorded CI evidence in TASK-00-02-04 and its known limitations.
+3. Complete formal acceptance review for TASK-00-02-04; do not mark it validated automatically.
+4. Reconcile Task, Epic and Lot statuses after the actual decision.
+5. Then assess readiness for TASK-00-02-05.
 
 Git remains authoritative for branch, HEAD and working
 tree status. Do not duplicate volatile Git metadata here.
