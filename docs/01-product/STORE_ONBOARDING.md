@@ -127,15 +127,17 @@ l'implémentation de ces changements.
 - Quelles informations sont obligatoires à l'inscription ?
 - Une caisse physique doit-elle être créée automatiquement ?
 - Comment démarre une session automatique ?
-- Comment proposer une ouverture simplifiée lors des
-  journées suivantes, sans réutiliser automatiquement
-  un montant qui n'a pas été vérifié ?
+- Quelles variantes du parcours d'ouverture simplifiée faut-il tester auprès des utilisateurs ?
 - Comment guider un commerçant vers un profil
   plus adapté lorsque son activité grandit ?
 - Quelles modifications de politique exigent
   l'absence de session active ?
 
-## 8. Hors périmètre de cette spécification
+## 8. Ouvertures des journées suivantes
+
+Les règles confirmées de nouvelle session, confirmation du fonds et traitement configurable des écarts sont décrites dans [Ouverture quotidienne de caisse](../02-domain/discovery/CASH_SESSION_DAILY_OPENING.md). Le choix du profil ne dispense pas de confirmer le fonds réellement présent avant la première vente de la session.
+
+## 9. Hors périmètre de cette spécification
 
 Ce document ne définit pas :
 
