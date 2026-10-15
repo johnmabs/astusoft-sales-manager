@@ -297,3 +297,189 @@ def validate_parent_reference(
         )
 
     return parent
+
+
+CANONICAL_RECORD_PATHS = {
+    "lot": lambda identifier: Path("docs/04-delivery/lots") / identifier / "LOT.md",
+    "epic": lambda identifier: (
+        Path("docs/04-delivery/lots") / f"LOT-{identifier.split('-')[1]}"
+        / "epics" / identifier / "EPIC.md"
+    ),
+    "task": lambda identifier: (
+        Path("docs/04-delivery/lots") / f"LOT-{identifier.split('-')[1]}"
+        / "epics" / f"EPIC-{identifier.split('-')[1]}-{identifier.split('-')[2]}"
+        / "tasks" / f"{identifier}.md"
+    ),
+    "gate": lambda identifier: (
+        Path("docs/04-delivery/lots") / f"LOT-{identifier.split('-')[1]}" / "GATE.md"
+    ),
+}
+
+
+def validate_canonical_path(
+    path: Path,
+    record_type: str,
+    repository_root: Path,
+) -> Path:
+    """Verify the location of a delivery record using its parsed ID."""
+    root = repository_root.resolve()
+    document = path.resolve()
+
+    if not document.is_relative_to(root):
+        raise DeliveryMetadataError("Document path escapes repository")
+
+    if record_type not in CANONICAL_RECORD_PATHS:
+        raise DeliveryMetadataError(f"Unknown record type: {record_type}")
+
+    metadata = read_delivery_metadata(document, record_type)
+    expected = (root / CANONICAL_RECORD_PATHS[record_type](metadata.identifier)).resolve()
+
+    if document != expected:
+        raise DeliveryMetadataError(
+            f"Non-canonical path for {metadata.identifier}: "
+            f"expected {expected.relative_to(root)}"
+        )
+
+    return expected
+
+
+INVENTORY_HEADINGS = {
+    "lot": "## 4. Epic inventory",
+    "epic": "## 4. Task inventory",
+}
+
+
+def validate_child_inventory(
+    path: Path,
+    record_type: str,
+    repository_root: Path,
+) -> None:
+    """Check an operational Lot/Epic inventory against child records."""
+    if record_type not in INVENTORY_HEADINGS:
+        raise DeliveryMetadataError(f"Unsupported inventory type: {record_type}")
+
+    validate_canonical_path(path, record_type, repository_root)
+    content = path.read_text(encoding="utf-8")
+    heading = INVENTORY_HEADINGS[record_type]
+    if heading not in content:
+        raise DeliveryMetadataError(f"Missing inventory section: {heading}")
+
+    section = content.split(heading, 1)[1].split("\n## ", 1)[0]
+    child_type = "epic" if record_type == "lot" else "task"
+    child_dir = path.parent / ("epics" if record_type == "lot" else "tasks")
+    discovered = (
+        list(child_dir.glob("EPIC-*/EPIC.md")) if record_type == "lot"
+        else list(child_dir.glob("TASK-*.md"))
+    )
+    expected_ids = set()
+    for child in discovered:
+        validate_canonical_path(child, child_type, repository_root)
+        expected_ids.add(read_delivery_metadata(child, child_type).identifier)
+
+    declared = set()
+    for line in section.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 4:
+            continue
+        identifier, _, status, reference = cells[:4]
+        if not validate_identifier(child_type, identifier):
+            continue
+        if identifier in declared:
+            raise DeliveryMetadataError(f"Duplicate inventory ID: {identifier}")
+        declared.add(identifier)
+        match = MARKDOWN_LINK_PATTERN.fullmatch(reference)
+        if match is None:
+            raise DeliveryMetadataError(f"Missing inventory link: {identifier}")
+        _, target = match.groups()
+        target_file = (path.parent / target).resolve()
+        if not target_file.is_relative_to(repository_root.resolve()):
+            raise DeliveryMetadataError(f"Inventory link escapes repository: {identifier}")
+        if not target_file.is_file():
+            raise DeliveryMetadataError(f"Missing inventory child: {identifier}")
+        metadata = read_delivery_metadata(target_file, child_type)
+        if metadata.identifier != identifier:
+            raise DeliveryMetadataError(f"Inventory ID mismatch: {identifier}")
+        if metadata.status != status:
+            raise DeliveryMetadataError(f"Inventory status mismatch: {identifier}")
+        validate_canonical_path(target_file, child_type, repository_root)
+        validate_parent_reference(target_file, child_type, repository_root)
+        if target_file.parent != (
+            child_dir / identifier if record_type == "lot" else child_dir
+        ).resolve():
+            raise DeliveryMetadataError(f"Inventory path mismatch: {identifier}")
+
+    if expected_ids != declared:
+        raise DeliveryMetadataError(
+            f"Inventory mismatch: missing={sorted(expected_ids - declared)}, "
+            f"unexpected={sorted(declared - expected_ids)}"
+        )
+
+
+def validate_repository_delivery(repository_root: Path) -> list[str]:
+    """Validate operational delivery records, returning diagnostic messages."""
+    root = repository_root.resolve()
+    lots_root = root / "docs/04-delivery/lots"
+    errors: list[str] = []
+    seen: dict[tuple[str, str], Path] = {}
+    records: list[tuple[Path, str]] = []
+
+    if not lots_root.is_dir():
+        return ["Missing delivery lots directory"]
+
+    for document in sorted(lots_root.rglob("*.md")):
+        name = document.name
+        if name == "LOT.md":
+            kind = "lot"
+        elif name == "EPIC.md":
+            kind = "epic"
+        elif name == "GATE.md":
+            kind = "gate"
+        elif name.startswith("TASK-"):
+            kind = "task"
+        else:
+            continue
+        try:
+            metadata = read_delivery_metadata(document, kind)
+            key = (kind, metadata.identifier)
+            if key in seen:
+                errors.append(
+                    f"Duplicate delivery ID {metadata.identifier}: "
+                    f"{seen[key].relative_to(root)} and {document.relative_to(root)}"
+                )
+            else:
+                seen[key] = document
+            records.append((document, kind))
+        except (DeliveryMetadataError, OSError) as exc:
+            errors.append(f"{document.relative_to(root)}: {exc}")
+
+    for document, kind in records:
+        try:
+            validate_canonical_path(document, kind, root)
+            if kind in PARENT_TYPES:
+                validate_parent_reference(document, kind, root)
+            if kind in INVENTORY_HEADINGS:
+                validate_child_inventory(document, kind, root)
+        except (DeliveryMetadataError, OSError) as exc:
+            errors.append(f"{document.relative_to(root)}: {exc}")
+    return errors
+
+
+def main() -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Validate delivery records")
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    args = parser.parse_args()
+    failures = validate_repository_delivery(args.root)
+    if failures:
+        for failure in failures:
+            print(f"ERROR: {failure}")
+        return 1
+    print("Delivery documentation validation passed.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
