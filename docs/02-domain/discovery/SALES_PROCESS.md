@@ -249,8 +249,10 @@ points de vente de l'organisation.
 
 **Modes envisagés :**
 
-1. Caisse partagée entre plusieurs vendeurs.
-2. Caisse individuelle affectée à un vendeur.
+1. Caisse physique utilisée successivement par plusieurs vendeurs, avec une session personnelle distincte pour chacun.
+2. Caisse physique affectée à un vendeur, avec une session individuelle.
+
+Aucun de ces modes n'autorise plusieurs personnes à encaisser simultanément dans la même session.
 
 **Règles fonctionnelles :**
 
@@ -402,6 +404,12 @@ de passation et de supervision.
   signalée au gérant ?
 - Que faire lorsqu'un vendeur quitte son poste sans
   pouvoir clôturer sa session ?
+
+### BR-SALES-012 — Reprise de caisse et écarts d'ouverture
+
+**Statut :** Principes confirmés ; détails de politique encore à arbitrer.
+
+L'ouverture des journées suivantes, le calcul du fonds attendu, la confirmation du fonds réel et la politique configurable des écarts sont spécifiés dans [CASH_SESSION_DAILY_OPENING.md](CASH_SESSION_DAILY_OPENING.md), source de référence. Les paramètres non arbitrés dans ce document ne sont pas considérés comme acceptés.
 
 ## 7. Informations métier potentielles
 
