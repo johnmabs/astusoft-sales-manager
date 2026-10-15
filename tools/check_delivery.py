@@ -415,3 +415,71 @@ def validate_child_inventory(
             f"Inventory mismatch: missing={sorted(expected_ids - declared)}, "
             f"unexpected={sorted(declared - expected_ids)}"
         )
+
+
+def validate_repository_delivery(repository_root: Path) -> list[str]:
+    """Validate operational delivery records, returning diagnostic messages."""
+    root = repository_root.resolve()
+    lots_root = root / "docs/04-delivery/lots"
+    errors: list[str] = []
+    seen: dict[tuple[str, str], Path] = {}
+    records: list[tuple[Path, str]] = []
+
+    if not lots_root.is_dir():
+        return ["Missing delivery lots directory"]
+
+    for document in sorted(lots_root.rglob("*.md")):
+        name = document.name
+        if name == "LOT.md":
+            kind = "lot"
+        elif name == "EPIC.md":
+            kind = "epic"
+        elif name == "GATE.md":
+            kind = "gate"
+        elif name.startswith("TASK-"):
+            kind = "task"
+        else:
+            continue
+        try:
+            metadata = read_delivery_metadata(document, kind)
+            key = (kind, metadata.identifier)
+            if key in seen:
+                errors.append(
+                    f"Duplicate delivery ID {metadata.identifier}: "
+                    f"{seen[key].relative_to(root)} and {document.relative_to(root)}"
+                )
+            else:
+                seen[key] = document
+            records.append((document, kind))
+        except (DeliveryMetadataError, OSError) as exc:
+            errors.append(f"{document.relative_to(root)}: {exc}")
+
+    for document, kind in records:
+        try:
+            validate_canonical_path(document, kind, root)
+            if kind in PARENT_TYPES:
+                validate_parent_reference(document, kind, root)
+            if kind in INVENTORY_HEADINGS:
+                validate_child_inventory(document, kind, root)
+        except (DeliveryMetadataError, OSError) as exc:
+            errors.append(f"{document.relative_to(root)}: {exc}")
+    return errors
+
+
+def main() -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Validate delivery records")
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    args = parser.parse_args()
+    failures = validate_repository_delivery(args.root)
+    if failures:
+        for failure in failures:
+            print(f"ERROR: {failure}")
+        return 1
+    print("Delivery documentation validation passed.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
