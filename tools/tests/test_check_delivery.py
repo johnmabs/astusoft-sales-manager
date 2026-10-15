@@ -396,10 +396,6 @@ class ParentReferenceValidationTests(unittest.TestCase):
         )
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class CanonicalPathValidationTests(unittest.TestCase):
     def setUp(self):
         self.directory = TemporaryDirectory()
@@ -458,3 +454,7 @@ class CanonicalPathValidationTests(unittest.TestCase):
             path.write_text("**ID:** LOT-00\n**Status:** in-progress\n")
             with self.assertRaisesRegex(DeliveryMetadataError, "escapes repository"):
                 validate_canonical_path(path, "lot", self.root)
+
+
+if __name__ == "__main__":
+    unittest.main()
