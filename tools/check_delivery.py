@@ -341,3 +341,77 @@ def validate_canonical_path(
         )
 
     return expected
+
+
+INVENTORY_HEADINGS = {
+    "lot": "## 4. Epic inventory",
+    "epic": "## 4. Task inventory",
+}
+
+
+def validate_child_inventory(
+    path: Path,
+    record_type: str,
+    repository_root: Path,
+) -> None:
+    """Check an operational Lot/Epic inventory against child records."""
+    if record_type not in INVENTORY_HEADINGS:
+        raise DeliveryMetadataError(f"Unsupported inventory type: {record_type}")
+
+    validate_canonical_path(path, record_type, repository_root)
+    content = path.read_text(encoding="utf-8")
+    heading = INVENTORY_HEADINGS[record_type]
+    if heading not in content:
+        raise DeliveryMetadataError(f"Missing inventory section: {heading}")
+
+    section = content.split(heading, 1)[1].split("\\n## ", 1)[0]
+    child_type = "epic" if record_type == "lot" else "task"
+    child_dir = path.parent / ("epics" if record_type == "lot" else "tasks")
+    discovered = (
+        list(child_dir.glob("EPIC-*/EPIC.md")) if record_type == "lot"
+        else list(child_dir.glob("TASK-*.md"))
+    )
+    expected_ids = set()
+    for child in discovered:
+        validate_canonical_path(child, child_type, repository_root)
+        expected_ids.add(read_delivery_metadata(child, child_type).identifier)
+
+    declared = set()
+    for line in section.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 4:
+            continue
+        identifier, _, status, reference = cells[:4]
+        if not validate_identifier(child_type, identifier):
+            continue
+        if identifier in declared:
+            raise DeliveryMetadataError(f"Duplicate inventory ID: {identifier}")
+        declared.add(identifier)
+        match = MARKDOWN_LINK_PATTERN.fullmatch(reference)
+        if match is None:
+            raise DeliveryMetadataError(f"Missing inventory link: {identifier}")
+        _, target = match.groups()
+        target_file = (path.parent / target).resolve()
+        if not target_file.is_relative_to(repository_root.resolve()):
+            raise DeliveryMetadataError(f"Inventory link escapes repository: {identifier}")
+        if not target_file.is_file():
+            raise DeliveryMetadataError(f"Missing inventory child: {identifier}")
+        metadata = read_delivery_metadata(target_file, child_type)
+        if metadata.identifier != identifier:
+            raise DeliveryMetadataError(f"Inventory ID mismatch: {identifier}")
+        if metadata.status != status:
+            raise DeliveryMetadataError(f"Inventory status mismatch: {identifier}")
+        validate_canonical_path(target_file, child_type, repository_root)
+        validate_parent_reference(target_file, child_type, repository_root)
+        if target_file.parent != (
+            child_dir / identifier if record_type == "lot" else child_dir
+        ).resolve():
+            raise DeliveryMetadataError(f"Inventory path mismatch: {identifier}")
+
+    if expected_ids != declared:
+        raise DeliveryMetadataError(
+            f"Inventory mismatch: missing={sorted(expected_ids - declared)}, "
+            f"unexpected={sorted(declared - expected_ids)}"
+        )
