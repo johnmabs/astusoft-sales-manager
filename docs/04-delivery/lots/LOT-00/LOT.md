@@ -1,7 +1,7 @@
 # LOT-00 — Project Foundation
 
 **ID:** LOT-00
-**Status:** in-progress
+**Status:** validated
 **Owner:** Project Maintainer
 **Phase:** Phase 0 — Project Foundation
 
@@ -56,7 +56,7 @@ planning and discovery activities.
 
 | Epic       | Objective                        | Status        | Reference                              |
 | ---------- | -------------------------------- | ------------- | -------------------------------------- |
-| EPIC-00-01 | Establish initial governance     | in-validation | [EPIC-00-01](epics/EPIC-00-01/EPIC.md) |
+| EPIC-00-01 | Establish initial governance     | validated | [EPIC-00-01](epics/EPIC-00-01/EPIC.md) |
 | EPIC-00-02 | Establish delivery documentation | validated   | [EPIC-00-02](epics/EPIC-00-02/EPIC.md) |
 
 Epic records own their authoritative statuses.
@@ -95,15 +95,15 @@ No currently blocking issue is confirmed.
 
 ## 7. Acceptance criteria
 
-- [ ] Governance documents have been reviewed and accepted.
-- [ ] Delivery contracts and templates are available.
-- [ ] Required Lot, Epic, Task and Gate records exist.
-- [ ] Parent-child relationships are navigable.
-- [ ] Previous governance work has been reconciled against available Git evidence.
-- [ ] Documentation checks execute successfully.
-- [ ] A recovery exercise identifies the current work and next action without chat history.
-- [ ] Unresolved limitations are documented.
-- [ ] GATE-00 has passed.
+- [x] Governance documents have been reviewed and accepted.
+- [x] Delivery contracts and templates are available.
+- [x] Required Lot, Epic, Task and Gate records exist.
+- [x] Parent-child relationships are navigable.
+- [x] Previous governance work has been reconciled against available Git evidence.
+- [x] Documentation checks execute successfully.
+- [x] A recovery exercise identifies the current work and next action without chat history.
+- [x] Unresolved limitations are documented.
+- [x] GATE-00 has passed.
 
 The criteria must be verified using actual evidence.
 
@@ -139,7 +139,11 @@ criteria are met and GATE-00 has passed.
 These questions must be resolved before the Gate
 decision when they affect mandatory acceptance criteria.
 
-## 11. Change history
+## 11. Acceptance record
+
+**Decision:** Accepted by Project Maintainer on 2026-10-15, subject to the separately recorded GATE-00 decision. The repository-only recovery simulation established navigability; local working-tree state was not independently observable through GitHub. CI has verified basic delivery/governance checks, not business implementation.
+
+## 12. Change history
 
 Git maintains the authoritative document history.
 

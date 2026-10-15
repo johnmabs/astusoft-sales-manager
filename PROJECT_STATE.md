@@ -2,7 +2,7 @@
 
 **State ID:** STATE-001
 **Last reviewed:** 2026-10-15
-**State status:** Delivery Epic review accepted; LOT-00 governance/Gate still pending
+**State status:** LOT-00 foundation accepted; planning next domain delivery lot
 **Expected branch:** main
 
 > This file is a navigation and recovery snapshot.
@@ -23,9 +23,9 @@ No technical architecture has yet been accepted. Initial business decisions on c
 | Phase               | Phase 0 — Project Foundation                       |
 | Lot                 | LOT-00 — Project Foundation                        |
 | Epic                | EPIC-00-02 — Delivery Documentation Infrastructure |
-| Current Task        | TASK-00-01-06 (governance validation work)          |
-| Current Task status | in-progress                                        |
-| Last validated Gate | None confirmed                                     |
+| Current Task        | None — LOT-00 completed          |
+| Current Task status | validated                                        |
+| Last validated Gate | GATE-00 passed on 2026-10-15                                     |
 
 Authoritative delivery statuses belong to the corresponding
 Lot, Epic, Task and Gate records.
@@ -78,7 +78,7 @@ has been reviewed, committed or accepted.
 
 ## 5. Current work
 
-**Task:** TASK-00-01-06 (see its authoritative task record).
+**Task:** None. The foundation lot is closed; define and approve the next Lot/Task before implementation.
 
 **Context:** The repository contains AGENTS.md, governance checks, delivery checks and tests. Existing commits demonstrate tracked changes, not successful validation. Daily cash opening and configurable variance policy are documented in `docs/02-domain/discovery/CASH_SESSION_DAILY_OPENING.md`.
 
@@ -98,13 +98,13 @@ The following verification remains open:
 
 **Task:** TASK-00-02-04
 
-**Action:** Review remaining governance evidence, perform required Gate preparation and recovery check.
+**Action:** Define the next domain discovery delivery Lot and initial actionable Task.
 
-1. Inspect Git state locally and read TASK-00-01-06 and EPIC-00-01.
-2. Reconcile outstanding governance-document approvals and Task evidence.
-3. Perform an actual local recovery exercise, including Git working tree inspection.
-4. Review remaining LOT-00 acceptance criteria and GATE-00 evidence.
-5. Do not mark LOT-00 validated or GATE-00 passed without their own verification.
+1. Inspect actual local Git state before further edits.
+2. Read the approved LOT-00 and GATE-00 records.
+3. Identify the scope and acceptance criteria for the next domain discovery Lot.
+4. Create its Task inventory and choose one executable next Task.
+5. Preserve the remaining business-rule questions and do not infer application implementation.
 
 Git remains authoritative for branch, HEAD and working
 tree status. Do not duplicate volatile Git metadata here.

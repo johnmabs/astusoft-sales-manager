@@ -1,7 +1,7 @@
 # EPIC-00-01 — Initial Governance Foundations
 
 **ID:** EPIC-00-01
-**Status:** in-validation
+**Status:** validated
 **Owner:** Project Maintainer
 **Parent Lot:** [LOT-00](../../LOT.md)
 
@@ -51,12 +51,12 @@ project information.
 
 | Task          | Objective                        | Status        | Reference                      |
 | ------------- | -------------------------------- | ------------- | ------------------------------ |
-| TASK-00-01-01 | Initialize repository            | in-validation | [Task](tasks/TASK-00-01-01.md) |
-| TASK-00-01-02 | Define documentation policy      | in-validation | [Task](tasks/TASK-00-01-02.md) |
-| TASK-00-01-03 | Define workflow and status model | in-validation | [Task](tasks/TASK-00-01-03.md) |
-| TASK-00-01-04 | Establish recovery protocol      | in-validation | [Task](tasks/TASK-00-01-04.md) |
-| TASK-00-01-05 | Establish AI instructions        | in-validation | [Task](tasks/TASK-00-01-05.md) |
-| TASK-00-01-06 | Validate initial governance      | in-progress   | [Task](tasks/TASK-00-01-06.md) |
+| TASK-00-01-01 | Initialize repository            | validated | [Task](tasks/TASK-00-01-01.md) |
+| TASK-00-01-02 | Define documentation policy      | validated | [Task](tasks/TASK-00-01-02.md) |
+| TASK-00-01-03 | Define workflow and status model | validated | [Task](tasks/TASK-00-01-03.md) |
+| TASK-00-01-04 | Establish recovery protocol      | validated | [Task](tasks/TASK-00-01-04.md) |
+| TASK-00-01-05 | Establish AI instructions        | validated | [Task](tasks/TASK-00-01-05.md) |
+| TASK-00-01-06 | Validate initial governance      | validated   | [Task](tasks/TASK-00-01-06.md) |
 
 Each Task file owns its authoritative status.
 
@@ -89,17 +89,17 @@ No application architecture ADR is required for this Epic.
 
 ## 7. Acceptance criteria
 
-- [ ] The repository provides a clear project identity.
-- [ ] Documentation responsibilities are explicit.
-- [ ] Delivery statuses and transitions are defined.
-- [ ] The recovery procedure does not duplicate volatile
+- [x] The repository provides a clear project identity.
+- [x] Documentation responsibilities are explicit.
+- [x] Delivery statuses and transitions are defined.
+- [x] The recovery procedure does not duplicate volatile
       Git state.
-- [ ] AGENTS.md defines safe collaboration rules.
-- [ ] Governance documents have been reviewed.
-- [ ] The governance validator has been executed.
-- [ ] Validation evidence and remaining limitations
+- [x] AGENTS.md defines safe collaboration rules.
+- [x] Governance documents have been reviewed.
+- [x] The governance validator has been executed.
+- [x] Validation evidence and remaining limitations
       are documented.
-- [ ] All required Tasks have verified completion
+- [x] All required Tasks have verified completion
       records.
 
 ## 8. Integration verification
@@ -168,9 +168,11 @@ Do not replace pending results with assumed success.
 
 ## 13. Completion decision
 
-**Decision:** Pending
+**Decision:** Accepted for governance scope
 **Reviewer:** Project Maintainer
-**Date:** Not recorded
+**Date:** 2026-10-15
+
+**Evidence:** Initial governance acceptance recorded in GOVERNANCE_REVIEW.md (2026-10-09), historical Git commits listed above, and successful GitHub Actions run 38727516373. Local uncommitted changes are not verifiable through the repository API.
 
 This Epic remains `in-validation` until all mandatory
 criteria and the required Task records are verified.
