@@ -7,6 +7,7 @@ from tools.check_delivery import read_delivery_metadata
 from tools.check_delivery import validate_parent_reference
 from tools.check_delivery import validate_canonical_path
 from tools.check_delivery import validate_child_inventory
+from tools.check_delivery import validate_repository_delivery
 
 from tools.check_delivery import (
     DeliveryMetadataError,
@@ -519,6 +520,47 @@ class ChildInventoryValidationTests(unittest.TestCase):
         self.epic.write_text(self.epic.read_text() + entry)
         with self.assertRaisesRegex(DeliveryMetadataError, "Duplicate inventory ID"):
             validate_child_inventory(self.epic, "epic", self.root)
+
+
+class RepositoryDeliveryValidationTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = TemporaryDirectory()
+        self.root = Path(self.temporary.name)
+        self.lot = self.root / "docs/04-delivery/lots/LOT-00/LOT.md"
+        self.lot.parent.mkdir(parents=True)
+        self.lot.write_text(
+            "**ID:** LOT-00\n**Status:** in-progress\n"
+            "## 4. Epic inventory\n"
+            "| Epic | Objective | Status | Reference |\n"
+            "| --- | --- | --- | --- |\n"
+        )
+
+    def tearDown(self):
+        self.temporary.cleanup()
+
+    def test_valid_repository(self):
+        self.assertEqual(validate_repository_delivery(self.root), [])
+
+    def test_rejects_duplicate_identifier(self):
+        duplicate = self.root / "docs/04-delivery/lots/LOT-01/LOT.md"
+        duplicate.parent.mkdir(parents=True)
+        duplicate.write_text("**ID:** LOT-00\n**Status:** in-progress\n")
+        issues = validate_repository_delivery(self.root)
+        self.assertTrue(any("Duplicate delivery ID" in issue for issue in issues))
+
+    def test_rejects_noncanonical_document(self):
+        misplaced = self.root / "docs/04-delivery/lots/LOT-00/tasks/TASK-00-02-04.md"
+        misplaced.parent.mkdir()
+        misplaced.write_text(
+            "**ID:** TASK-00-02-04\n**Status:** in-progress\n"
+            "**Parent Epic:** [EPIC-00-02](../EPIC.md)\n"
+        )
+        issues = validate_repository_delivery(self.root)
+        self.assertTrue(any("Non-canonical path" in issue for issue in issues))
+
+    def test_reports_missing_lots_directory(self):
+        with TemporaryDirectory() as empty:
+            self.assertIn("Missing delivery lots directory", validate_repository_delivery(Path(empty)))
 
 
 if __name__ == "__main__":
