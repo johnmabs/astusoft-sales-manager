@@ -57,7 +57,7 @@ planning and discovery activities.
 | Epic       | Objective                        | Status        | Reference                              |
 | ---------- | -------------------------------- | ------------- | -------------------------------------- |
 | EPIC-00-01 | Establish initial governance     | in-validation | [EPIC-00-01](epics/EPIC-00-01/EPIC.md) |
-| EPIC-00-02 | Establish delivery documentation | in-progress   | [EPIC-00-02](epics/EPIC-00-02/EPIC.md) |
+| EPIC-00-02 | Establish delivery documentation | validated   | [EPIC-00-02](epics/EPIC-00-02/EPIC.md) |
 
 Epic records own their authoritative statuses.
 

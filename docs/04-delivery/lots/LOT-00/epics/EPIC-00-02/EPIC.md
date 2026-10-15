@@ -1,7 +1,7 @@
 # EPIC-00-02 — Delivery Documentation Infrastructure
 
 **ID:** EPIC-00-02
-**Status:** in-progress
+**Status:** validated
 **Owner:** Project Maintainer
 **Parent Lot:** [LOT-00](../../LOT.md)
 
@@ -47,11 +47,11 @@ must not depend on previous conversations.
 
 | Task          | Objective                     | Status        | Reference                               |
 | ------------- | ----------------------------- | ------------- | --------------------------------------- |
-| TASK-00-02-01 | Define delivery contracts     | in-validation | [TASK-00-02-01](tasks/TASK-00-02-01.md) |
-| TASK-00-02-02 | Create delivery templates     | in-validation | [TASK-00-02-02](tasks/TASK-00-02-02.md) |
-| TASK-00-02-03 | Establish operational records | in-progress   | [TASK-00-02-03](tasks/TASK-00-02-03.md) |
+| TASK-00-02-01 | Define delivery contracts     | validated | [TASK-00-02-01](tasks/TASK-00-02-01.md) |
+| TASK-00-02-02 | Create delivery templates     | validated | [TASK-00-02-02](tasks/TASK-00-02-02.md) |
+| TASK-00-02-03 | Establish operational records | validated   | [TASK-00-02-03](tasks/TASK-00-02-03.md) |
 | TASK-00-02-04 | Automate documentation checks | validated   | [TASK-00-02-04](tasks/TASK-00-02-04.md) |
-| TASK-00-02-05 | Review delivery documentation | in-progress       | [TASK-00-02-05](tasks/TASK-00-02-05.md) |
+| TASK-00-02-05 | Review delivery documentation | validated       | [TASK-00-02-05](tasks/TASK-00-02-05.md) |
 
 Each Task record owns its authoritative status.
 
@@ -84,18 +84,18 @@ No application architecture ADR is required.
 
 ## 7. Acceptance criteria
 
-- [ ] Delivery documentation contracts are reviewed.
-- [ ] All four canonical templates exist.
-- [ ] Templates contain no unresolved active links.
-- [ ] Operational Lot, Epic, Task and Gate records exist.
-- [ ] Parent-child references are valid and navigable.
-- [ ] All delivery statuses conform to STATUS_MODEL.md.
-- [ ] Historical Git evidence is recorded without
+- [x] Delivery documentation contracts are reviewed.
+- [x] All four canonical templates exist.
+- [x] Templates contain no unresolved active links.
+- [x] Operational Lot, Epic, Task and Gate records exist.
+- [x] Parent-child references are valid and navigable.
+- [x] All delivery statuses conform to STATUS_MODEL.md.
+- [x] Historical Git evidence is recorded without
       inventing validation results.
-- [ ] Automated documentation checks execute successfully.
-- [ ] A manual consistency review is completed.
-- [ ] Outstanding limitations are documented.
-- [ ] Required Tasks are validated.
+- [x] Automated documentation checks execute successfully.
+- [x] A manual consistency review is completed.
+- [x] Outstanding limitations are documented.
+- [x] Required Tasks are validated.
 
 ## 8. Integration verification
 
@@ -129,9 +129,9 @@ No current blocking issue has been independently confirmed.
 
 | Check                        | Result        | Evidence |
 | ---------------------------- | ------------- | -------- |
-| Delivery contracts review    | Not recorded  | Pending  |
-| Template reference review    | Not recorded  | Pending  |
-| Operational records review   | Incomplete    | Pending  |
+| Delivery contracts review    | Reviewed within TASK-00-02-01; separate document approval remains | Task record |
+| Template reference review    | Reviewed within TASK-00-02-02 | Task record |
+| Operational records review   | Reviewed within TASK-00-02-03 | Task record |
 | Automated consistency checks | Passed on merge revision `e08f19b` | [GitHub Actions run](https://github.com/johnmabs/astusoft-sales-manager/actions/runs/38727516373) |
 | Epic integration review      | Not executed  | Pending  |
 
@@ -148,9 +148,11 @@ corresponding Task records.
 
 ## 12. Completion decision
 
-**Decision:** Pending
-**Reviewer:** Project Maintainer
-**Date:** Not recorded
+**Decision:** Accepted — delivery documentation Epic scope
+**Reviewer:** Project Maintainer, completion requested 2026-10-15
+**Date:** 2026-10-15
+
+All five operational Tasks have recorded acceptance decisions and the delivery/governance validators passed on the prior verified baseline. Final PR CI will recheck these changes. Formal document approvals, EPIC-00-01, LOT-00 and GATE-00 remain separate decisions.
 
 This Epic must not be marked validated until all
 mandatory acceptance criteria have supporting evidence.
