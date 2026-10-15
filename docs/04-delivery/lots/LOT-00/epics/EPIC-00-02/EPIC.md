@@ -51,7 +51,7 @@ must not depend on previous conversations.
 | TASK-00-02-02 | Create delivery templates     | in-validation | [TASK-00-02-02](tasks/TASK-00-02-02.md) |
 | TASK-00-02-03 | Establish operational records | in-progress   | [TASK-00-02-03](tasks/TASK-00-02-03.md) |
 | TASK-00-02-04 | Automate documentation checks | validated   | [TASK-00-02-04](tasks/TASK-00-02-04.md) |
-| TASK-00-02-05 | Review delivery documentation | planned       | [TASK-00-02-05](tasks/TASK-00-02-05.md) |
+| TASK-00-02-05 | Review delivery documentation | in-progress       | [TASK-00-02-05](tasks/TASK-00-02-05.md) |
 
 Each Task record owns its authoritative status.
 
@@ -132,7 +132,7 @@ No current blocking issue has been independently confirmed.
 | Delivery contracts review    | Not recorded  | Pending  |
 | Template reference review    | Not recorded  | Pending  |
 | Operational records review   | Incomplete    | Pending  |
-| Automated consistency checks | Not completed | Pending  |
+| Automated consistency checks | Passed on merge revision `e08f19b` | [GitHub Actions run](https://github.com/johnmabs/astusoft-sales-manager/actions/runs/38727516373) |
 | Epic integration review      | Not executed  | Pending  |
 
 Existing Git commits must be reconciled with the
