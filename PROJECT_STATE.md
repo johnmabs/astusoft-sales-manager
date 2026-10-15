@@ -2,7 +2,7 @@
 
 **State ID:** STATE-001
 **Last reviewed:** 2026-10-15
-**State status:** LOT-00 foundation accepted; planning next domain delivery lot
+**State status:** LOT-01 domain discovery in progress; first source-study Task active
 **Expected branch:** main
 
 > This file is a navigation and recovery snapshot.
@@ -20,11 +20,11 @@ No technical architecture has yet been accepted. Initial business decisions on c
 
 | Field               | Value                                              |
 | ------------------- | -------------------------------------------------- |
-| Phase               | Phase 0 — Project Foundation                       |
-| Lot                 | LOT-00 — Project Foundation                        |
-| Epic                | EPIC-00-02 — Delivery Documentation Infrastructure |
-| Current Task        | None — LOT-00 completed          |
-| Current Task status | validated                                        |
+| Phase               | Phase 1 — Business discovery                       |
+| Lot                 | LOT-01 — Domain discovery                        |
+| Epic                | EPIC-01-01 — Sales and cash business discovery |
+| Current Task        | TASK-01-01-01 — Source evidence and glossary          |
+| Current Task status | in-progress                                        |
 | Last validated Gate | GATE-00 passed on 2026-10-15                                     |
 
 Authoritative delivery statuses belong to the corresponding
@@ -78,11 +78,11 @@ has been reviewed, committed or accepted.
 
 ## 5. Current work
 
-**Task:** None. The foundation lot is closed; define and approve the next Lot/Task before implementation.
+**Task:** TASK-01-01-01 — source-study evidence and glossary. LOT-00 is closed; LOT-01 is underway.
 
 **Context:** The repository contains AGENTS.md, governance checks, delivery checks and tests. Existing commits demonstrate tracked changes, not successful validation. Daily cash opening and configurable variance policy are documented in `docs/02-domain/discovery/CASH_SESSION_DAILY_OPENING.md`.
 
-**Validation status:** GitHub Actions passed for merge commit `551f473` ([run #2](https://github.com/johnmabs/astusoft-sales-manager/actions/runs/38726684776)); TASK-00-02-04 formally accepted on 2026-10-15; parent Epic and LOT-00 remain in progress.
+**Validation status:** LOT-00 / GATE-00 accepted. LOT-01, EPIC-01-01 and TASK-01-01-01 remain in progress and require their own evidence. Reference repository study is non-normative and does not define Astusoft architecture.
 
 ## 6. Known blockers and open questions
 
@@ -96,15 +96,15 @@ The following verification remains open:
 
 ## 7. Next actionable step
 
-**Task:** TASK-00-02-04
+**Task:** TASK-01-01-01
 
-**Action:** Define the next domain discovery delivery Lot and initial actionable Task.
+**Action:** Inspect reference source CashSession tests and application handlers, record the business evidence and glossary, and distinguish accepted Astusoft rules from legacy implementation.
 
 1. Inspect actual local Git state before further edits.
-2. Read the approved LOT-00 and GATE-00 records.
-3. Identify the scope and acceptance criteria for the next domain discovery Lot.
-4. Create its Task inventory and choose one executable next Task.
-5. Preserve the remaining business-rule questions and do not infer application implementation.
+2. Read LOT-01, EPIC-01-01 and TASK-01-01-01.
+3. Study the designated reference repository and update the evidence matrix.
+4. Draft the business glossary and compare existing Astusoft rules.
+5. Record unresolved choices without choosing software architecture.
 
 Git remains authoritative for branch, HEAD and working
 tree status. Do not duplicate volatile Git metadata here.
