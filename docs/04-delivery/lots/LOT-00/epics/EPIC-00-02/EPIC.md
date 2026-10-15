@@ -47,9 +47,9 @@ must not depend on previous conversations.
 
 | Task          | Objective                     | Status        | Reference                               |
 | ------------- | ----------------------------- | ------------- | --------------------------------------- |
-| TASK-00-02-01 | Define delivery contracts     | in-validation | [TASK-00-02-01](tasks/TASK-00-02-01.md) |
-| TASK-00-02-02 | Create delivery templates     | in-validation | [TASK-00-02-02](tasks/TASK-00-02-02.md) |
-| TASK-00-02-03 | Establish operational records | in-progress   | [TASK-00-02-03](tasks/TASK-00-02-03.md) |
+| TASK-00-02-01 | Define delivery contracts     | validated | [TASK-00-02-01](tasks/TASK-00-02-01.md) |
+| TASK-00-02-02 | Create delivery templates     | validated | [TASK-00-02-02](tasks/TASK-00-02-02.md) |
+| TASK-00-02-03 | Establish operational records | validated   | [TASK-00-02-03](tasks/TASK-00-02-03.md) |
 | TASK-00-02-04 | Automate documentation checks | validated   | [TASK-00-02-04](tasks/TASK-00-02-04.md) |
 | TASK-00-02-05 | Review delivery documentation | in-progress       | [TASK-00-02-05](tasks/TASK-00-02-05.md) |
 
@@ -129,9 +129,9 @@ No current blocking issue has been independently confirmed.
 
 | Check                        | Result        | Evidence |
 | ---------------------------- | ------------- | -------- |
-| Delivery contracts review    | Not recorded  | Pending  |
-| Template reference review    | Not recorded  | Pending  |
-| Operational records review   | Incomplete    | Pending  |
+| Delivery contracts review    | Reviewed within TASK-00-02-01; separate document approval remains | Task record |
+| Template reference review    | Reviewed within TASK-00-02-02 | Task record |
+| Operational records review   | Reviewed within TASK-00-02-03 | Task record |
 | Automated consistency checks | Passed on merge revision `e08f19b` | [GitHub Actions run](https://github.com/johnmabs/astusoft-sales-manager/actions/runs/38727516373) |
 | Epic integration review      | Not executed  | Pending  |
 
