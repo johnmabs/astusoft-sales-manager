@@ -2,7 +2,7 @@
 
 **State ID:** STATE-001
 **Last reviewed:** 2026-10-15
-**State status:** TASK-00-02-04 accepted; next delivery review pending
+**State status:** TASK-00-02-05 review in progress
 **Expected branch:** main
 
 > This file is a navigation and recovery snapshot.
@@ -23,8 +23,8 @@ No technical architecture has yet been accepted. Initial business decisions on c
 | Phase               | Phase 0 — Project Foundation                       |
 | Lot                 | LOT-00 — Project Foundation                        |
 | Epic                | EPIC-00-02 — Delivery Documentation Infrastructure |
-| Current Task        | TASK-00-02-04 (delivery validation work)          |
-| Current Task status | validated                                        |
+| Current Task        | TASK-00-02-05 (delivery consistency review)          |
+| Current Task status | in-progress                                        |
 | Last validated Gate | None confirmed                                     |
 
 Authoritative delivery statuses belong to the corresponding
@@ -78,7 +78,7 @@ has been reviewed, committed or accepted.
 
 ## 5. Current work
 
-**Task:** TASK-00-02-04 (see its authoritative task record).
+**Task:** TASK-00-02-05 (see its authoritative task record).
 
 **Context:** The repository contains AGENTS.md, governance checks, delivery checks and tests. Existing commits demonstrate tracked changes, not successful validation. Daily cash opening and configurable variance policy are documented in `docs/02-domain/discovery/CASH_SESSION_DAILY_OPENING.md`.
 
@@ -98,13 +98,13 @@ The following verification remains open:
 
 **Task:** TASK-00-02-04
 
-**Action:** Complete operational delivery record reconciliation.
+**Action:** Reconcile historical delivery evidence and complete integration review.
 
-1. Inspect Git status locally and read TASK-00-02-04.
-2. Review TASK-00-02-05 and its prerequisites.
-3. Reconcile historical Task and Epic acceptance evidence.
-4. Run the delivery and governance validators on any further changes.
-5. Keep LOT-00 and GATE-00 pending until their own criteria are satisfied.
+1. Inspect Git status locally and read TASK-00-02-05.
+2. Reconcile historical Git evidence for TASK-00-02-01, TASK-00-02-02 and TASK-00-02-03.
+3. Review contracts, templates and the repository-only recovery flow.
+4. Record final evidence and run document validators after changes.
+5. Keep EPIC-00-02, LOT-00 and GATE-00 unvalidated until their specific criteria are met.
 
 Git remains authoritative for branch, HEAD and working
 tree status. Do not duplicate volatile Git metadata here.
