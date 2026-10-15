@@ -5,6 +5,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from tools.check_delivery import read_delivery_metadata
 from tools.check_delivery import validate_parent_reference
+from tools.check_delivery import validate_canonical_path
 
 from tools.check_delivery import (
     DeliveryMetadataError,
@@ -397,3 +398,63 @@ class ParentReferenceValidationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CanonicalPathValidationTests(unittest.TestCase):
+    def setUp(self):
+        self.directory = TemporaryDirectory()
+        self.root = Path(self.directory.name)
+
+    def tearDown(self):
+        self.directory.cleanup()
+
+    def create_record(self, relative_path, identifier, record_type):
+        path = self.root / relative_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        parents = {
+            "lot": "",
+            "epic": "**Parent Lot:** [LOT-00](../../LOT.md)\\n",
+            "task": "**Parent Epic:** [EPIC-00-02](../EPIC.md)\\n",
+            "gate": "**Parent Lot:** [LOT-00](LOT.md)\\n",
+        }
+        path.write_text(
+            f"**ID:** {identifier}\\n**Status:** in-progress\\n".replace("\\n", "\n")
+            + parents[record_type].replace("\\n", "\n"),
+            encoding="utf-8",
+        )
+        return path
+
+    def test_accepts_canonical_lot_epic_task_paths(self):
+        examples = [
+            ("lot", "LOT-00", "docs/04-delivery/lots/LOT-00/LOT.md"),
+            ("epic", "EPIC-00-02", "docs/04-delivery/lots/LOT-00/epics/EPIC-00-02/EPIC.md"),
+            ("task", "TASK-00-02-04", "docs/04-delivery/lots/LOT-00/epics/EPIC-00-02/tasks/TASK-00-02-04.md"),
+        ]
+        for kind, identifier, relative in examples:
+            with self.subTest(kind=kind):
+                path = self.create_record(relative, identifier, kind)
+                self.assertEqual(
+                    validate_canonical_path(path, kind, self.root), path.resolve()
+                )
+
+    def test_accepts_canonical_gate_path(self):
+        path = self.create_record(
+            "docs/04-delivery/lots/LOT-00/GATE.md", "GATE-00", "gate"
+        )
+        path.write_text(path.read_text().replace("in-progress", "pending"))
+        self.assertEqual(validate_canonical_path(path, "gate", self.root), path.resolve())
+
+    def test_rejects_noncanonical_path(self):
+        path = self.create_record(
+            "docs/04-delivery/lots/LOT-00/tasks/TASK-00-02-04.md",
+            "TASK-00-02-04", "task",
+        )
+        with self.assertRaisesRegex(DeliveryMetadataError, "Non-canonical path"):
+            validate_canonical_path(path, "task", self.root)
+
+    def test_rejects_document_outside_repository(self):
+        with TemporaryDirectory() as other:
+            path = Path(other) / "LOT.md"
+            path.write_text("**ID:** LOT-00\n**Status:** in-progress\n")
+            with self.assertRaisesRegex(DeliveryMetadataError, "escapes repository"):
+                validate_canonical_path(path, "lot", self.root)
