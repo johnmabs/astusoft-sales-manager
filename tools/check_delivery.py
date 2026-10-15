@@ -297,3 +297,47 @@ def validate_parent_reference(
         )
 
     return parent
+
+
+CANONICAL_RECORD_PATHS = {
+    "lot": lambda identifier: Path("docs/04-delivery/lots") / identifier / "LOT.md",
+    "epic": lambda identifier: (
+        Path("docs/04-delivery/lots") / f"LOT-{identifier.split('-')[1]}"
+        / "epics" / identifier / "EPIC.md"
+    ),
+    "task": lambda identifier: (
+        Path("docs/04-delivery/lots") / f"LOT-{identifier.split('-')[1]}"
+        / "epics" / f"EPIC-{identifier.split('-')[1]}-{identifier.split('-')[2]}"
+        / "tasks" / f"{identifier}.md"
+    ),
+    "gate": lambda identifier: (
+        Path("docs/04-delivery/lots") / f"LOT-{identifier.split('-')[1]}" / "GATE.md"
+    ),
+}
+
+
+def validate_canonical_path(
+    path: Path,
+    record_type: str,
+    repository_root: Path,
+) -> Path:
+    """Verify the location of a delivery record using its parsed ID."""
+    root = repository_root.resolve()
+    document = path.resolve()
+
+    if not document.is_relative_to(root):
+        raise DeliveryMetadataError("Document path escapes repository")
+
+    if record_type not in CANONICAL_RECORD_PATHS:
+        raise DeliveryMetadataError(f"Unknown record type: {record_type}")
+
+    metadata = read_delivery_metadata(document, record_type)
+    expected = (root / CANONICAL_RECORD_PATHS[record_type](metadata.identifier)).resolve()
+
+    if document != expected:
+        raise DeliveryMetadataError(
+            f"Non-canonical path for {metadata.identifier}: "
+            f"expected {expected.relative_to(root)}"
+        )
+
+    return expected
