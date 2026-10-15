@@ -1,8 +1,8 @@
 # Astusoft Sales Manager — Project State
 
 **State ID:** STATE-001
-**Last reviewed:** 2026-10-09
-**State status:** Pending Git reconciliation
+**Last reviewed:** 2026-10-15
+**State status:** Partially reconciled; validation evidence pending
 **Expected branch:** main
 
 > This file is a navigation and recovery snapshot.
@@ -14,8 +14,7 @@
 Astusoft Sales Manager is currently establishing its
 engineering governance and documentation foundations.
 
-No technical architecture or detailed business model has
-yet been accepted.
+No technical architecture has yet been accepted. Initial business decisions on cash sessions and daily opening have been documented; they are not implemented software.
 
 ## 2. Current delivery focus
 
@@ -24,7 +23,7 @@ yet been accepted.
 | Phase               | Phase 0 — Project Foundation                       |
 | Lot                 | LOT-00 — Project Foundation                        |
 | Epic                | EPIC-00-02 — Delivery Documentation Infrastructure |
-| Current Task        | TASK-00-02-03                                      |
+| Current Task        | TASK-00-02-04 (delivery validation work)          |
 | Current Task status | in-progress                                        |
 | Last validated Gate | None confirmed                                     |
 
@@ -79,26 +78,15 @@ has been reviewed, committed or accepted.
 
 ## 5. Current work
 
-**Task:** TASK-00-02-05
+**Task:** TASK-00-02-04 (see its authoritative task record).
 
-**Objective:**
-Establish the AI collaboration entry point and progressive
-context-loading rules.
+**Context:** The repository contains AGENTS.md, governance checks, delivery checks and tests. Existing commits demonstrate tracked changes, not successful validation. Daily cash opening and configurable variance policy are documented in `docs/02-domain/discovery/CASH_SESSION_DAILY_OPENING.md`.
 
-**Expected changes:**
-
-- Create AGENTS.md.
-- Review context-loading instructions.
-- Review implementation and verification rules.
-- Verify consistency with governance documents.
-- Update the project recovery snapshot.
-- Commit the approved changes.
-
-**Validation status:** In progress.
+**Validation status:** Pending executed verification and evidence reconciliation.
 
 ## 6. Known blockers and open questions
 
-No blocker has been formally confirmed.
+No blocker has been formally confirmed. The current state of the local uncommitted working tree cannot be established from the remote repository.
 
 The following verification remains open:
 
@@ -112,14 +100,11 @@ The following verification remains open:
 
 **Action:** Complete operational delivery record reconciliation.
 
-1. Verify the five EPIC-00-02 Task records.
-2. Verify all parent-child Markdown links.
-3. Reconcile historical commit references using Git.
-4. Review statuses against available evidence.
-5. Record actual verification results.
-6. Validate and commit TASK-00-02-04 documentation.
-7. Transition to TASK-00-02-05 when its prerequisites
-   have been satisfied.
+1. Inspect Git status locally and read TASK-00-02-04.
+2. Run existing documentation validation tests and tools.
+3. Record the exact commands, results, revision and limitations.
+4. Reconcile task, epic and lot statuses only against verified evidence.
+5. Review open cash policy questions without presenting them as approved defaults.
 
 Git remains authoritative for branch, HEAD and working
 tree status. Do not duplicate volatile Git metadata here.
