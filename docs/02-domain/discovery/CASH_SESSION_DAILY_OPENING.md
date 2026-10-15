@@ -2,7 +2,7 @@
 
 - Projet : Astusoft Sales Manager
 - Nature : décision fonctionnelle — découverte métier
-- Statut : proposition consolidée à intégrer dans `docs/02-domain/discovery/SALES_PROCESS.md`
+- Statut : principes d'ouverture confirmés ; politique des écarts acceptée dans son orientation, paramètres détaillés encore en discussion
 
 ## Objectif
 
@@ -71,3 +71,66 @@ Les modes changent la quantité d'interactions et les habilitations, pas la tra�
 - La stratégie hors ligne et la prévention des doubles ouvertures lors de synchronisations.
 
 Ces sujets ne modifient pas les principes ci-dessus et ne doivent pas être présentés comme déjà arbitrés.
+
+## Décision ASM-CASH-OPEN-001 — Politique configurable des écarts
+
+**Statut :** orientation métier acceptée le 15 octobre 2026. Les seuils chiffrés et certains traitements d'exception restent à arbitrer.
+
+### Référence de calcul
+
+Le fonds attendu correspond au dernier montant physique validé, augmenté des entrées et diminué des sorties d'espèces enregistrées depuis ce point de référence. Les paiements non réalisés en espèces ne modifient pas ce fonds.
+
+`écart = fonds effectivement compté - fonds attendu`
+
+Un montant attendu inconnu est distinct d'un fonds attendu de zéro. L'ouverture enregistre toujours le montant réellement compté, sans le remplacer par le montant théorique. Les écarts négatifs et positifs restent historisés.
+
+### Configuration des contrôles
+
+- L'organisation définit une politique de référence et des limites d'autorisation.
+- Chaque point de vente peut choisir une politique dans les limites autorisées par l'organisation.
+- Chaque caisse peut recevoir une dérogation explicite à la politique du point de vente, dans les limites autorisées par l'organisation.
+- En l'absence de dérogation, la configuration du niveau supérieur s'applique. La politique effective et sa version sont conservées au moment de chaque ouverture; un changement ultérieur ne réécrit pas l'historique.
+- Le montant absolu de l'écart est comparé à deux seuils configurables, exprimés dans la devise de la caisse : tolérance et seuil critique. Les deux seuils doivent être positifs ou nuls, et le seuil critique ne peut être inférieur à la tolérance.
+- Aucun montant de seuil chiffré n'a été accepté comme valeur par défaut. Tout exemple chiffré est indicatif.
+
+### Classification
+
+| Situation | Classification |
+| --- | --- |
+| Écart égal à zéro | Aucun écart |
+| Écart non nul et valeur absolue inférieure ou égale à la tolérance | Mineur |
+| Valeur absolue supérieure à la tolérance et inférieure ou égale au seuil critique | Significatif |
+| Valeur absolue supérieure au seuil critique | Critique |
+
+La classification ne définit pas à elle seule le blocage : chaque niveau possède une action configurée dans les limites de la politique d'organisation. Les actions envisagées sont consignation seule, justification obligatoire, notification, et approbation avant ouverture. L'absence de fonds attendu fiable doit être traitée explicitement, sans fabriquer un écart nul.
+
+### Habilitations et responsabilités
+
+- Le vendeur habilité déclare et confirme son fonds réel et peut justifier l'écart.
+- Le gérant ou responsable habilité consulte les écarts des caisses dont il a la charge et peut approuver ceux soumis à validation.
+- L'administrateur habilité configure les politiques; cette faculté n'implique pas automatiquement le droit d'approuver ses propres écarts.
+- Un vendeur ne peut pas approuver son propre écart par défaut. Une exception explicite peut être prévue pour un propriétaire exploitant seul, mais ses modalités restent à valider.
+- Les déclarations, justifications, décisions, auteurs, horodatages et versions de politique sont conservés sans réécriture des faits validés.
+- Le vendeur entrant reconnaît ce qu'il reçoit et n'est pas automatiquement tenu responsable des écarts antérieurs.
+
+### Notifications et indisponibilité
+
+- Les écarts mineurs sont journalisés; le déclenchement de notifications reste configurable.
+- Les écarts significatifs peuvent déclencher une notification au responsable; selon la politique, l'ouverture peut rester autorisée.
+- Les écarts critiques peuvent imposer une approbation préalable. En pareil cas, l'absence d'approbation ne vaut jamais autorisation.
+- La notification intégrée est le canal de référence envisagé; les canaux externes restent optionnels.
+- Une défaillance de notification ne doit pas contourner un contrôle obligatoire. L'envoi peut être repris de manière fiable sans multiplier les notifications.
+- La délégation, l'escalade et les exceptions en cas d'indisponibilité du gérant restent à arbitrer avant implémentation.
+
+### Critères d'acceptation additionnels
+
+1. Un retrait enregistré entre deux sessions diminue le montant attendu, sans créer artificiellement un écart.
+2. Un écart positif et un écart négatif de même amplitude reçoivent la même classe, mais conservent leur signe.
+3. Une somme attendue inconnue n'est jamais présentée comme zéro.
+4. Une valeur réellement comptée différente du montant attendu est conservée telle quelle.
+5. Une caisse sans dérogation hérite de la configuration applicable du point de vente; une dérogation ne dépasse pas les limites de l'organisation.
+6. Une modification ultérieure des seuils ne modifie pas la classification et la décision historiques.
+7. Un vendeur ordinaire ne peut pas approuver son propre écart soumis à validation.
+8. Lorsqu'une approbation préalable est requise, les encaissements restent impossibles avant une décision autorisée.
+9. Une notification en échec ne supprime ni l'écart ni la demande d'approbation.
+10. Une relève conserve séparément les montants remis et reçus et les identités des deux personnes.
